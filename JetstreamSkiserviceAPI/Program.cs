@@ -1,6 +1,7 @@
 using JetstreamSkiserviceAPI.Models;
 using JetstreamSkiserviceAPI.Services;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace MoviesAPIv1
 {
@@ -9,6 +10,15 @@ namespace MoviesAPIv1
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            // Add Serilogger
+            var logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(builder.Configuration)
+                .Enrich.FromLogContext()
+                .CreateLogger();
+
+            builder.Logging.ClearProviders();
+            builder.Logging.AddSerilog(logger);
 
             // Add DbContext class
             builder.Services.AddDbContext<RegistrationsContext>(options =>
