@@ -1,4 +1,5 @@
 using JetstreamSkiserviceAPI.Models;
+using JetstreamSkiserviceAPI.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace MoviesAPIv1
@@ -12,9 +13,11 @@ namespace MoviesAPIv1
             // Add DbContext class
             builder.Services.AddDbContext<RegistrationsContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("JetstreamSkiserviceDB")));
+            
+            // Add Scopes from the implemented interfaces
+            builder.Services.AddScoped<IRegistrationService, RegistrationService>();
 
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
