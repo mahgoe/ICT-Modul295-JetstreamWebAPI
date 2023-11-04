@@ -17,7 +17,7 @@ namespace JetstreamSkiserviceAPI.Models
         /// Name of the service offered.
         /// </summary>
         [Required]
-        [StringLength(30)]
+        [StringLength(50)]
         public string ServiceName { get; set; }
 
         /// <summary>

@@ -38,6 +38,23 @@ namespace JetstreamSkiserviceAPI.Migrations
                     b.HasKey("PriorityId");
 
                     b.ToTable("Priority");
+
+                    b.HasData(
+                        new
+                        {
+                            PriorityId = 1,
+                            PriorityName = "Tief"
+                        },
+                        new
+                        {
+                            PriorityId = 2,
+                            PriorityName = "Standard"
+                        },
+                        new
+                        {
+                            PriorityId = 3,
+                            PriorityName = "Express"
+                        });
                 });
 
             modelBuilder.Entity("JetstreamSkiserviceAPI.Models.Registration", b =>
@@ -107,12 +124,44 @@ namespace JetstreamSkiserviceAPI.Migrations
 
                     b.Property<string>("ServiceName")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("ServiceId");
 
                     b.ToTable("Services");
+
+                    b.HasData(
+                        new
+                        {
+                            ServiceId = 1,
+                            ServiceName = "Kleiner Service"
+                        },
+                        new
+                        {
+                            ServiceId = 2,
+                            ServiceName = "Grosser Service"
+                        },
+                        new
+                        {
+                            ServiceId = 3,
+                            ServiceName = "Rennski Service"
+                        },
+                        new
+                        {
+                            ServiceId = 4,
+                            ServiceName = "Bindungen montieren und einstellen"
+                        },
+                        new
+                        {
+                            ServiceId = 5,
+                            ServiceName = "Fell zuschneiden"
+                        },
+                        new
+                        {
+                            ServiceId = 6,
+                            ServiceName = "Heisswachsen"
+                        });
                 });
 
             modelBuilder.Entity("JetstreamSkiserviceAPI.Models.Status", b =>
@@ -131,6 +180,23 @@ namespace JetstreamSkiserviceAPI.Migrations
                     b.HasKey("StatusId");
 
                     b.ToTable("Status");
+
+                    b.HasData(
+                        new
+                        {
+                            StatusId = 1,
+                            StatusName = "Offen"
+                        },
+                        new
+                        {
+                            StatusId = 2,
+                            StatusName = "InArbeit"
+                        },
+                        new
+                        {
+                            StatusId = 3,
+                            StatusName = "abgeschlossen"
+                        });
                 });
 
             modelBuilder.Entity("JetstreamSkiserviceAPI.Models.Registration", b =>

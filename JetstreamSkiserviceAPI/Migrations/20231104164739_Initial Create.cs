@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace JetstreamSkiserviceAPI.Migrations
 {
     /// <inheritdoc />
@@ -30,7 +32,7 @@ namespace JetstreamSkiserviceAPI.Migrations
                 {
                     ServiceId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ServiceName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false)
+                    ServiceName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -88,6 +90,39 @@ namespace JetstreamSkiserviceAPI.Migrations
                         principalTable: "Status",
                         principalColumn: "StatusId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Priority",
+                columns: new[] { "PriorityId", "PriorityName" },
+                values: new object[,]
+                {
+                    { 1, "Tief" },
+                    { 2, "Standard" },
+                    { 3, "Express" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Services",
+                columns: new[] { "ServiceId", "ServiceName" },
+                values: new object[,]
+                {
+                    { 1, "Kleiner Service" },
+                    { 2, "Grosser Service" },
+                    { 3, "Rennski Service" },
+                    { 4, "Bindungen montieren und einstellen" },
+                    { 5, "Fell zuschneiden" },
+                    { 6, "Heisswachsen" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Status",
+                columns: new[] { "StatusId", "StatusName" },
+                values: new object[,]
+                {
+                    { 1, "Offen" },
+                    { 2, "InArbeit" },
+                    { 3, "abgeschlossen" }
                 });
 
             migrationBuilder.CreateIndex(
