@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JetstreamSkiserviceAPI.Migrations
 {
     [DbContext(typeof(RegistrationsContext))]
-    [Migration("20231104164739_Initial Create")]
-    partial class InitialCreate
+    [Migration("20231105114615_Change required fields v2")]
+    partial class Changerequiredfieldsv2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -94,7 +94,6 @@ namespace JetstreamSkiserviceAPI.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Price")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PriorityId")

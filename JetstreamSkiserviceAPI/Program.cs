@@ -3,7 +3,7 @@ using JetstreamSkiserviceAPI.Services;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
-namespace MoviesAPIv1
+namespace JetstreamSkiserviceAPI
 {
     public class Program
     {
@@ -30,6 +30,9 @@ namespace MoviesAPIv1
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddControllers();
+            builder.Services.AddAuthorization();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -41,6 +44,7 @@ namespace MoviesAPIv1
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();

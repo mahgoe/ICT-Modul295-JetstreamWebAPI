@@ -65,7 +65,7 @@ namespace JetstreamSkiserviceAPI.Models
         /// <summary>
         /// Price of the service
         /// </summary>
-        public string Price { get; set; }
+        public string? Price { get; set; }
 
         /// <summary>
         /// Additional comments or special instructions for the ski service

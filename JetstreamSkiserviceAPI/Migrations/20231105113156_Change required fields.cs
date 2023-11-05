@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace JetstreamSkiserviceAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Changerequiredfields : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -63,10 +63,10 @@ namespace JetstreamSkiserviceAPI.Migrations
                     Phone = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Create_date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Pickup_date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    StatusId = table.Column<int>(type: "int", nullable: false),
-                    PriorityId = table.Column<int>(type: "int", nullable: false),
-                    ServiceId = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StatusId = table.Column<int>(type: "int", nullable: true),
+                    PriorityId = table.Column<int>(type: "int", nullable: true),
+                    ServiceId = table.Column<int>(type: "int", nullable: true),
+                    Price = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Comment = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
                 },
                 constraints: table =>
@@ -76,20 +76,17 @@ namespace JetstreamSkiserviceAPI.Migrations
                         name: "FK_Registrations_Priority_PriorityId",
                         column: x => x.PriorityId,
                         principalTable: "Priority",
-                        principalColumn: "PriorityId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "PriorityId");
                     table.ForeignKey(
                         name: "FK_Registrations_Services_ServiceId",
                         column: x => x.ServiceId,
                         principalTable: "Services",
-                        principalColumn: "ServiceId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ServiceId");
                     table.ForeignKey(
                         name: "FK_Registrations_Status_StatusId",
                         column: x => x.StatusId,
                         principalTable: "Status",
-                        principalColumn: "StatusId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "StatusId");
                 });
 
             migrationBuilder.InsertData(
