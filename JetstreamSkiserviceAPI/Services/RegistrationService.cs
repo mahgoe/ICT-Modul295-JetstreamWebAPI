@@ -1,7 +1,5 @@
 ﻿using JetstreamSkiserviceAPI.DTO;
 using JetstreamSkiserviceAPI.Models;
-using Microsoft.AspNetCore.JsonPatch;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace JetstreamSkiserviceAPI.Services
@@ -24,28 +22,22 @@ namespace JetstreamSkiserviceAPI.Services
         /// </summary>
         public async Task<IEnumerable<RegistrationDto>> GetRegistrations()
         {
-            try
-            {
-                return await _context.Registrations
-                    .Select(Registration => new RegistrationDto
-                    {
-                        RegistrationId = Registration.RegistrationId,
-                        Name = Registration.Name,
-                        Email = Registration.Email,
-                        Phone = Registration.Phone,
-                        Create_date = Registration.Create_date,
-                        Pickup_date = Registration.Pickup_date,
-                        Status = Registration.Status.StatusName,
-                        Priority = Registration.Priority.PriorityName,
-                        Service = Registration.Service.ServiceName,
-                        Price = Registration.Price,
-                        Comment = Registration.Comment
-                    })
-                    .ToListAsync();
-            } catch (Exception ex)
-            {
-                throw new Exception(ex.Message, ex);
-            }
+            return await _context.Registrations
+                .Select(Registration => new RegistrationDto
+                {
+                    RegistrationId = Registration.RegistrationId,
+                    Name = Registration.Name,
+                    Email = Registration.Email,
+                    Phone = Registration.Phone,
+                    Create_date = Registration.Create_date,
+                    Pickup_date = Registration.Pickup_date,
+                    Status = Registration.Status.StatusName,
+                    Priority = Registration.Priority.PriorityName,
+                    Service = Registration.Service.ServiceName,
+                    Price = Registration.Price,
+                    Comment = Registration.Comment
+                })
+                .ToListAsync();
         }
 
         /// <summary>
@@ -58,32 +50,25 @@ namespace JetstreamSkiserviceAPI.Services
         public async Task<RegistrationDto> GetRegistrationById(int id)
         {
             var registration = await _context.Registrations.FindAsync(id);
-
-            try
+            if (registration == null)
             {
-                if (registration == null)
-                {
-                    throw new KeyNotFoundException("Referenced ID or Item not found or doesn't exist");
-                }
-
-                return new RegistrationDto
-                {
-                    RegistrationId = registration.RegistrationId,
-                    Name = registration.Name,
-                    Email = registration.Email,
-                    Phone = registration.Phone,
-                    Create_date = registration.Create_date,
-                    Pickup_date = registration.Pickup_date,
-                    Status = registration.Status.StatusName,
-                    Priority = registration.Priority.PriorityName,
-                    Service = registration.Service.ServiceName,
-                    Price = registration.Price,
-                    Comment = registration.Comment
-                };
-            } catch (Exception ex) 
-            {
-                throw new Exception(ex.Message, ex);
+                throw new KeyNotFoundException("Referenced ID or Item not found or doesn't exist");
             }
+
+            return new RegistrationDto
+            {
+                RegistrationId = registration.RegistrationId,
+                Name = registration.Name,
+                Email = registration.Email,
+                Phone = registration.Phone,
+                Create_date = registration.Create_date,
+                Pickup_date = registration.Pickup_date,
+                Status = registration.Status.StatusName,
+                Priority = registration.Priority.PriorityName,
+                Service = registration.Service.ServiceName,
+                Price = registration.Price,
+                Comment = registration.Comment
+            };
         }
 
         /// <summary>
@@ -94,57 +79,26 @@ namespace JetstreamSkiserviceAPI.Services
         /// <exception cref="Exception">Thrown when an unexpected error occurs during the process</exception>
         public async Task<RegistrationDto> AddRegistration(RegistrationDto registrationDto)
         {
-            try
+            var registration = new Registration
             {
-                var registration = new Registration
-                {
-                    RegistrationId = registrationDto.RegistrationId,
-                    Name = registrationDto.Name,
-                    Email = registrationDto.Email,
-                    Phone = registrationDto.Phone,
-                    Create_date = registrationDto.Create_date,
-                    Pickup_date = registrationDto.Pickup_date,
-                    Status = _context.Status.FirstOrDefault(e => e.StatusName == registrationDto.Status),
-                    Priority = _context.Priority.FirstOrDefault(e => e.PriorityName == registrationDto.Priority),
-                    Service = _context.Services.FirstOrDefault(e => e.ServiceName == registrationDto.Service),
-                    Price = registrationDto.Price,
-                    Comment = registrationDto.Comment
-                };
+                RegistrationId = registrationDto.RegistrationId,
+                Name = registrationDto.Name,
+                Email = registrationDto.Email,
+                Phone = registrationDto.Phone,
+                Create_date = registrationDto.Create_date,
+                Pickup_date = registrationDto.Pickup_date,
+                Status = _context.Status.FirstOrDefault(e => e.StatusName == registrationDto.Status),
+                Priority = _context.Priority.FirstOrDefault(e => e.PriorityName == registrationDto.Priority),
+                Service = _context.Services.FirstOrDefault(e => e.ServiceName == registrationDto.Service),
+                Price = registrationDto.Price,
+                Comment = registrationDto.Comment
+            };
 
-                _context.Registrations.Add(registration);
-                await _context.SaveChangesAsync();
-                registrationDto.RegistrationId = registration.RegistrationId;
+            _context.Registrations.Add(registration);
+            await _context.SaveChangesAsync();
+            registrationDto.RegistrationId = registration.RegistrationId;
 
-                return registrationDto;
-            } catch(Exception ex)
-            {
-                throw new Exception(ex.Message, ex);
-            }
-        }
-
-        /// <summary>
-        /// Partially updates a registration by applying a JSON Patch document to it
-        /// </summary>
-        /// <param name="id">The ID of the registration to update</param>
-        /// <param name="patchDoc">The JSON Patch document containing the updates to apply</param>
-        /// <returns></returns>
-        /// <exception cref="KeyNotFoundException">Referenced ID or Item not found or doesn't exist</exception>
-        /// <exception cref="Exception">Thrown when an unexpected error occurs during the process</exception>
-        public async Task PatchRegistration(int id, [FromBody] JsonPatchDocument<RegistrationDto> patchDoc)
-        {
-            var registrationDto = await GetRegistrationById(id);
-            try
-            {
-                if (registrationDto == null)
-                {
-                    throw new KeyNotFoundException("Referenced ID or Item not found or doesn't exist");
-                }
-
-                patchDoc.ApplyTo(registrationDto);
-            } catch(Exception ex)
-            {
-                throw new Exception(ex.Message, ex);
-            }
+            return registrationDto;
         }
 
         /// <summary>
@@ -157,31 +111,24 @@ namespace JetstreamSkiserviceAPI.Services
         public async Task UpdateRegistration(RegistrationDto registrationDto)
         {
             var registration = await _context.Registrations.FindAsync(registrationDto.RegistrationId);
-
-            try
+            if (registration == null)
             {
-                if(registration == null)
-                {
-                    throw new KeyNotFoundException("Referenced ID or Item not found or doesn't exist");
-                }
-
-                registration.Name = registrationDto.Name;
-                registration.Email = registrationDto.Email;
-                registration.Phone = registrationDto.Phone;
-                registration.Create_date = registrationDto.Create_date;
-                registration.Pickup_date = registrationDto.Pickup_date;
-                registration.Status = _context.Status.FirstOrDefault(e => e.StatusName == registrationDto.Status);
-                registration.Priority = _context.Priority.FirstOrDefault(e => e.PriorityName == registrationDto.Priority);
-                registration.Service = _context.Services.FirstOrDefault(e => e.ServiceName == registrationDto.Service);
-                registration.Price = registrationDto.Price;
-                registration.Comment = registrationDto.Comment;
-
-                _context.Entry(registration).State = EntityState.Modified;
-                await _context.SaveChangesAsync();
-            } catch(Exception ex)
-            {
-                throw new Exception(ex.Message, ex);
+                throw new KeyNotFoundException("Referenced ID or Item not found or doesn't exist");
             }
+
+            registration.Name = registrationDto.Name;
+            registration.Email = registrationDto.Email;
+            registration.Phone = registrationDto.Phone;
+            registration.Create_date = registrationDto.Create_date;
+            registration.Pickup_date = registrationDto.Pickup_date;
+            registration.Status = _context.Status.FirstOrDefault(e => e.StatusName == registrationDto.Status);
+            registration.Priority = _context.Priority.FirstOrDefault(e => e.PriorityName == registrationDto.Priority);
+            registration.Service = _context.Services.FirstOrDefault(e => e.ServiceName == registrationDto.Service);
+            registration.Price = registrationDto.Price;
+            registration.Comment = registrationDto.Comment;
+
+            _context.Entry(registration).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
 
         /// <summary>
@@ -194,20 +141,13 @@ namespace JetstreamSkiserviceAPI.Services
         public async Task DeleteRegistration(int id)
         {
             var registration = await _context.Registrations.FindAsync(id);
-
-            try
+            if (registration == null)
             {
-                if(registration == null)
-                {
-                    throw new KeyNotFoundException("Referenced ID or Item not found or doesn't exist");
-                }
-
-                _context.Registrations.Remove(registration);
-                await _context.SaveChangesAsync();
-            } catch(Exception ex)
-            {
-                throw new Exception(ex.Message, ex);
+                throw new KeyNotFoundException("Referenced ID or Item not found or doesn't exist");
             }
+
+            _context.Registrations.Remove(registration);
+            await _context.SaveChangesAsync();
         }
     }
 }

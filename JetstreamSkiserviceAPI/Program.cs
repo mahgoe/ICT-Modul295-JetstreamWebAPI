@@ -23,11 +23,10 @@ namespace MoviesAPIv1
             // Add DbContext class
             builder.Services.AddDbContext<RegistrationsContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("JetstreamSkiserviceDB")));
-            
+
             // Add Scopes from the implemented interfaces
             builder.Services.AddScoped<IRegistrationService, RegistrationService>();
 
-            builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
@@ -43,7 +42,6 @@ namespace MoviesAPIv1
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 
