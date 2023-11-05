@@ -49,26 +49,38 @@ namespace JetstreamSkiserviceAPI.Services
         /// <exception cref="Exception">Thrown when an unexpected error occurs during the process</exception>
         public async Task<RegistrationDto> GetRegistrationById(int id)
         {
-            var registration = await _context.Registrations.FindAsync(id);
+            var registration = await _context.Registrations
+                .Include(r => r.Status)
+                .Include(r => r.Priority)
+                .Include(r => r.Service)
+                .FirstOrDefaultAsync(r => r.RegistrationId == id);
+
             if (registration == null)
             {
                 throw new KeyNotFoundException("Referenced ID or Item not found or doesn't exist");
             }
 
-            return new RegistrationDto
+            try
             {
-                RegistrationId = registration.RegistrationId,
-                Name = registration.Name,
-                Email = registration.Email,
-                Phone = registration.Phone,
-                Create_date = registration.Create_date,
-                Pickup_date = registration.Pickup_date,
-                Status = registration.Status.StatusName,
-                Priority = registration.Priority.PriorityName,
-                Service = registration.Service.ServiceName,
-                Price = registration.Price,
-                Comment = registration.Comment
-            };
+                return new RegistrationDto
+                {
+                    RegistrationId = registration.RegistrationId,
+                    Name = registration.Name,
+                    Email = registration.Email,
+                    Phone = registration.Phone,
+                    Create_date = registration.Create_date,
+                    Pickup_date = registration.Pickup_date,
+                    Status = registration.Status?.StatusName,
+                    Priority = registration.Priority?.PriorityName,
+                    Service = registration.Service?.ServiceName,
+                    Price = registration.Price,
+                    Comment = registration.Comment
+                };
+           } catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+
         }
 
         /// <summary>
