@@ -26,12 +26,13 @@ namespace JetstreamSkiserviceAPI
 
             // Add Scopes from the implemented interfaces
             builder.Services.AddScoped<IRegistrationService, RegistrationService>();
+            builder.Services.AddScoped<IStatusService, StatusService>();
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddControllers();
             builder.Services.AddAuthorization();
+            builder.Services.AddControllers();
 
             var app = builder.Build();
 

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace JetstreamSkiserviceAPI.Controllers
 {
     /// <summary>
-    /// Controller for registration using layers from DTO
+    /// Controller for handling HTTP requests related to registrations
     /// <remarks>
     /// If the API gets tested and you request a POST/PUT/DELETE change the strings in the body or you get 500 Internal Server Exception!
     ///  "status" : "Offen/InArbeit/abgeschlossen"
