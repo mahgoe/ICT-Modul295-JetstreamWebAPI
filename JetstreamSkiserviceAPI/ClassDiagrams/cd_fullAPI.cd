@@ -1,4 +1,104 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="JetstreamSkiserviceAPI.Controllers.RegistrationsController">
+    <Position X="0.5" Y="0.5" Width="6.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAhAAAAQEAAAAACBAA=</HashCode>
+      <FileName>Controllers\RegistrationController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JetstreamSkiserviceAPI.Controllers.StatusController">
+    <Position X="0.5" Y="3.5" Width="5.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAIAAAAAAAAgAAAAAAAAE=</HashCode>
+      <FileName>Controllers\StatusController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JetstreamSkiserviceAPI.DTO.RegistrationDto">
+    <Position X="7.25" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAEASAAAIAEAAAAAAAAQAAAQAAAAAAAIAAACAg=</HashCode>
+      <FileName>DTO\RegistrationDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JetstreamSkiserviceAPI.DTO.StatusDto">
+    <Position X="7.25" Y="4" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>DTO\StatusDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JetstreamSkiserviceAPI.Models.Priority">
+    <Position X="11.75" Y="4" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAABAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Priority.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JetstreamSkiserviceAPI.Models.Registration">
+    <Position X="22.25" Y="4" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAEASAAAIAEAAAAAAAAQAAAQAAAAAAAIAAACAg=</HashCode>
+      <FileName>Models\Registration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JetstreamSkiserviceAPI.Models.RegistrationsContext">
+    <Position X="13.75" Y="0.5" Width="6.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAIAEAQAAAAAEAAAAAAAAEAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Models\RegistrationsDbContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JetstreamSkiserviceAPI.Models.Service">
+    <Position X="18.75" Y="4" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Models\Service.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JetstreamSkiserviceAPI.Models.Status">
+    <Position X="15.25" Y="4" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAIAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Status.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JetstreamSkiserviceAPI.Services.RegistrationService">
+    <Position X="0.75" Y="9.5" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAABAAAAAAAAAAAgAABAAAAAAAAAAACBAA=</HashCode>
+      <FileName>Services\RegistrationService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="JetstreamSkiserviceAPI.Services.StatusService">
+    <Position X="6" Y="9.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAgAAAAAAAAE=</HashCode>
+      <FileName>Services\StatusService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="JetstreamSkiserviceAPI.Program">
+    <Position X="10.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="JetstreamSkiserviceAPI.Services.IRegistrationService">
+    <Position X="0.75" Y="7" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAgAABAAAAAAAAAAACBAA=</HashCode>
+      <FileName>Services\IRegistrationService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="JetstreamSkiserviceAPI.Services.IStatusService">
+    <Position X="6" Y="7" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAE=</HashCode>
+      <FileName>Services\IStatusService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
