@@ -5,6 +5,13 @@ using Serilog;
 
 namespace JetstreamSkiserviceAPI
 {
+    /// <summary>
+    /// Main Program from the backend
+    /// </summary>
+    /// <remarks>
+    /// If you use a other IP-Adress than the CORS registered, change it.
+    /// On Errors please look at the root-folder on the webapi.log
+    /// </remarks>
     public class Program
     {
         public static void Main(string[] args)
