@@ -55,7 +55,7 @@ namespace JetstreamSkiserviceAPI.Models
 
             // Set standard data for Status
             modelBuilder.Entity<Status>().HasData(
-                new Status { StatusId= 1, StatusName = "Offen" },
+                new Status { StatusId = 1, StatusName = "Offen" },
                 new Status { StatusId = 2, StatusName = "InArbeit" },
                 new Status { StatusId = 3, StatusName = "abgeschlossen" }
                 );

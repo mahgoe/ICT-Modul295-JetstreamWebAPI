@@ -40,7 +40,8 @@ namespace JetstreamSkiserviceAPI.Controllers
             try
             {
                 return Ok(await _statusService.GetAll());
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 _logger.LogError($"An Error occured, {ex.Message}");
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occured");
@@ -62,12 +63,13 @@ namespace JetstreamSkiserviceAPI.Controllers
 
             try
             {
-                if(statusDto == null)
+                if (statusDto == null)
                 {
                     return NotFound();
                 }
                 return Ok(statusDto);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 _logger.LogError($"An Error occured, {ex.Message}");
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occured");

@@ -78,7 +78,8 @@ namespace JetstreamSkiserviceAPI.Services
                     Price = registration.Price,
                     Comment = registration.Comment
                 };
-           } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message, ex);
             }

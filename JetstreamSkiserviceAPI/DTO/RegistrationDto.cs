@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace JetstreamSkiserviceAPI.DTO
+﻿namespace JetstreamSkiserviceAPI.DTO
 {
     /// <summary>
     /// Data Transfer Object representing a registration
@@ -9,14 +7,12 @@ namespace JetstreamSkiserviceAPI.DTO
     {
         public int RegistrationId { get; set; }
 
-    
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
 
         public string Email { get; set; }
 
- 
         public string Phone { get; set; }
 
         public DateTime Create_date { get; set; }

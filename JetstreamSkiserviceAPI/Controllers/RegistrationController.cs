@@ -1,5 +1,4 @@
-﻿using Azure;
-using JetstreamSkiserviceAPI.DTO;
+﻿using JetstreamSkiserviceAPI.DTO;
 using JetstreamSkiserviceAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -44,7 +43,8 @@ namespace JetstreamSkiserviceAPI.Controllers
             try
             {
                 return Ok(await _registrationService.GetRegistrations());
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 _logger.LogError($"An Error occured, {ex.Message}");
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occured");
@@ -70,7 +70,8 @@ namespace JetstreamSkiserviceAPI.Controllers
                     return NotFound();
                 }
                 return Ok(registrationDto);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 _logger.LogError($"An Error occured, {ex.Message}");
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred");
@@ -91,7 +92,8 @@ namespace JetstreamSkiserviceAPI.Controllers
             {
                 var createRegistrationDto = await _registrationService.AddRegistration(registrationDto);
                 return CreatedAtAction(nameof(CreateRegistration), new { id = registrationDto.RegistrationId }, createRegistrationDto);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 _logger.LogError($"An error occured, {ex.Message}");
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred");
@@ -120,11 +122,13 @@ namespace JetstreamSkiserviceAPI.Controllers
             {
                 await _registrationService.UpdateRegistration(registrationDto);
                 return Ok(registrationDto);
-            } catch (KeyNotFoundException ex)
+            }
+            catch (KeyNotFoundException ex)
             {
                 _logger.LogError($"An error occured, {ex.Message}");
                 return NotFound($"No Item found with ID {id}");
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 _logger.LogError($"An error occured, {ex.Message}");
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occured");
@@ -146,11 +150,13 @@ namespace JetstreamSkiserviceAPI.Controllers
             {
                 await _registrationService.DeleteRegistration(id);
                 return NoContent();
-            } catch (KeyNotFoundException ex)
+            }
+            catch (KeyNotFoundException ex)
             {
                 _logger.LogError($"An error occured, {ex.Message}");
                 return NotFound($"No Item found with ID {id}");
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 _logger.LogError($"An error occured, {ex.Message}");
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occured");

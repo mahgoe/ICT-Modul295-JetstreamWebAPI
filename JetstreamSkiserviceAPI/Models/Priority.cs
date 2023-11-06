@@ -18,7 +18,7 @@ namespace JetstreamSkiserviceAPI.Models
         /// </summary>
         [Required]
         [StringLength(15)]
-        public string PriorityName {  get; set; }
+        public string PriorityName { get; set; }
 
         /// <summary>
         /// Collection of registrations associated with this priority

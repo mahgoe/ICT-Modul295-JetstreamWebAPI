@@ -15,13 +15,13 @@ namespace JetstreamSkiserviceAPI.Models
         public int RegistrationId { get; set; }
 
         /// <summary>
-        /// Name of the person registering for the ski service (FirstName + LastName)
+        /// FirstName of the person registering for the ski service
         /// </summary>
         [StringLength(255)]
         public string? FirstName { get; set; }
 
         /// <summary>
-        /// Name of the person registering for the ski service (FirstName + LastName)
+        /// LastName of the person registering for the ski service
         /// </summary>
         [StringLength(255)]
         public string? LastName { get; set; }
@@ -36,7 +36,7 @@ namespace JetstreamSkiserviceAPI.Models
         /// Phone number of the person registering for the ski service
         /// </summary>
         [StringLength(30)]
-        public string? Phone {  get; set; }
+        public string? Phone { get; set; }
 
         /// <summary>
         /// The date and time when the registration was created/ Service begin date and time
