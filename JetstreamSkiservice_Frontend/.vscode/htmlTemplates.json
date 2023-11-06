@@ -1,0 +1,32 @@
+{
+    "templates": [
+        {
+            "path": "templates\\head.html",
+            "targets": [
+                "index.html",
+                "form.html",
+                "services.html",
+                "contact.html",
+                "about.html",
+                "admin.html"
+            ]
+        },
+        {
+            "path": "templates\\navigation.html",
+            "targets": [
+                "index.html"
+            ]
+        },
+        {
+            "path": "templates\\footer.html",
+            "targets": [
+                "index.html",
+                "form.html",
+                "services.html",
+                "contact.html",
+                "about.html",
+                "policies.html"
+            ]
+        }
+    ]
+}
