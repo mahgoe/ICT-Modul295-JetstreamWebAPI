@@ -26,7 +26,8 @@ namespace JetstreamSkiserviceAPI.Services
                 .Select(Registration => new RegistrationDto
                 {
                     RegistrationId = Registration.RegistrationId,
-                    Name = Registration.Name,
+                    FirstName = Registration.FirstName,
+                    LastName = Registration.LastName,
                     Email = Registration.Email,
                     Phone = Registration.Phone,
                     Create_date = Registration.Create_date,
@@ -65,7 +66,8 @@ namespace JetstreamSkiserviceAPI.Services
                 return new RegistrationDto
                 {
                     RegistrationId = registration.RegistrationId,
-                    Name = registration.Name,
+                    FirstName = registration.FirstName,
+                    LastName = registration.LastName,
                     Email = registration.Email,
                     Phone = registration.Phone,
                     Create_date = registration.Create_date,
@@ -94,7 +96,8 @@ namespace JetstreamSkiserviceAPI.Services
             var registration = new Registration
             {
                 RegistrationId = registrationDto.RegistrationId,
-                Name = registrationDto.Name,
+                FirstName = registrationDto.FirstName,
+                LastName = registrationDto.LastName,
                 Email = registrationDto.Email,
                 Phone = registrationDto.Phone,
                 Create_date = registrationDto.Create_date,
@@ -128,7 +131,8 @@ namespace JetstreamSkiserviceAPI.Services
                 throw new KeyNotFoundException("Referenced ID or Item not found or doesn't exist");
             }
 
-            registration.Name = registrationDto.Name;
+            registration.FirstName = registration.FirstName;
+            registration.LastName = registration.LastName;
             registration.Email = registrationDto.Email;
             registration.Phone = registrationDto.Phone;
             registration.Create_date = registrationDto.Create_date;

@@ -73,17 +73,18 @@ namespace JetstreamSkiserviceAPI.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
+                    b.Property<string>("FirstName")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("LastName")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
@@ -93,13 +94,13 @@ namespace JetstreamSkiserviceAPI.Migrations
                     b.Property<string>("Price")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PriorityId")
+                    b.Property<int?>("PriorityId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ServiceId")
+                    b.Property<int?>("ServiceId")
                         .HasColumnType("int");
 
-                    b.Property<int>("StatusId")
+                    b.Property<int?>("StatusId")
                         .HasColumnType("int");
 
                     b.HasKey("RegistrationId");
@@ -202,21 +203,15 @@ namespace JetstreamSkiserviceAPI.Migrations
                 {
                     b.HasOne("JetstreamSkiserviceAPI.Models.Priority", "Priority")
                         .WithMany("Registrations")
-                        .HasForeignKey("PriorityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PriorityId");
 
                     b.HasOne("JetstreamSkiserviceAPI.Models.Service", "Service")
                         .WithMany("Registrations")
-                        .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ServiceId");
 
                     b.HasOne("JetstreamSkiserviceAPI.Models.Status", "Status")
                         .WithMany("Registrations")
-                        .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StatusId");
 
                     b.Navigation("Priority");
 

@@ -40,7 +40,8 @@ namespace JetstreamSkiserviceAPI.Services
                 Registration = s.Registrations.Select(r => new RegistrationDto
                 {
                     RegistrationId = r.RegistrationId,
-                    Name = r.Name,
+                    FirstName = r.FirstName,
+                    LastName = r.LastName,
                     Email = r.Email,
                     Phone = r.Phone,
                     Create_date = r.Create_date,
