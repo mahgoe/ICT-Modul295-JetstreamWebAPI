@@ -35,12 +35,12 @@ namespace JetstreamSkiserviceAPI
             builder.Services.AddScoped<IRegistrationService, RegistrationService>();
             builder.Services.AddScoped<IStatusService, StatusService>();
 
-            // Configure CORS (change if you need to)
+            // Configure CORS
             builder.Services.AddCors(options =>
             {
                 options.AddDefaultPolicy(policy =>
                 {
-                    policy.WithOrigins("http://localhost:5502")
+                    policy.WithOrigins("http://localhost:5502", "http://127.0.0.1:5502") // Change this IP's
                           .AllowAnyHeader()
                           .AllowAnyMethod();
                 });
@@ -63,7 +63,7 @@ namespace JetstreamSkiserviceAPI
 
             app.UseHttpsRedirection();
 
-            app.UseCors(); // Aktivieren von CORS
+            app.UseCors(); // Activate CORS
 
             app.UseAuthentication();
             app.UseAuthorization();

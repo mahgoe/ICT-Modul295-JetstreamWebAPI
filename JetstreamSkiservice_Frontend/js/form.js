@@ -122,18 +122,18 @@ function validatePhoneNumber(field) {
 }
 
 function formatDate(dateString) {
-  // Teilt das Datum in Tag, Monat und Jahr
+  // Splits the date into day, month, and year
   const parts = dateString.split("/");
 
-  // Erstellt ein neues Date-Objekt unter Berücksichtigung des Formats "DD/MM/YYYY"
+  // Creates a new Date object considering the format "DD/MM/YYYY"
   const newDate = new Date(parts[2], parts[1] - 1, parts[0]);
 
-  // Erstellt ein neues Date-Objekt für die aktuelle Uhrzeit
+  // Creates a new Date object for the current time
   const now = new Date();
 
-  // Überprüft, ob das Datum gültig ist
+  // Checks if the date is valid
   if (!isNaN(newDate)) {
-    // Gibt das Datum und die aktuelle Uhrzeit im ISO-8601-Format zurück ohne Zeitzone
+    // Returns the date and the current time in ISO-8601 format without timezone
     return (
       newDate.getFullYear() +
       "-" +
@@ -150,7 +150,7 @@ function formatDate(dateString) {
       String(now.getMilliseconds()).padStart(3, "0")
     );
   } else {
-    // Gibt einen leeren String zurück oder wirft einen Fehler, wenn das Datum ungültig ist
+    // Returns an empty string or throws an error if the date is invalid
     return "";
   }
 }
