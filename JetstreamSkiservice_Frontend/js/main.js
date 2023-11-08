@@ -75,51 +75,6 @@ function setActiveNavigation(name) {
   document.querySelector(`a[data-page="${name}"]`).classList.add("active");
 }
 
-function handleNavbar() {
-  const relativePath = window.location.pathname;
-
-  switch (relativePath) {
-    case "/index.html":
-      setActiveNavigation("index");
-      break;
-
-    case "/":
-      setActiveNavigation("index");
-      break;
-
-    case "/about.html":
-      setActiveNavigation("about");
-      break;
-
-    case "/form.html":
-      setActiveNavigation("form");
-      break;
-
-    case "/services.html":
-      setActiveNavigation("services");
-      break;
-
-    case "/contact.html":
-      setActiveNavigation("contact");
-      break;
-
-    default:
-      setActiveNavigation("/");
-      break;
-  }
-}
-
-function getWrapperHeight() {
-  // Höhe der Navigation ermitteln
-  var navHeight = document.querySelector("nav").offsetHeight;
-  setMargin("form-wrapper", navHeight);
-  setMargin("services-wrapper", navHeight);
-  setMargin("index-wrapper", navHeight);
-  setMargin("contact-wrapper", navHeight);
-  setMargin("about-wrapper", navHeight);
-  setMargin("policies-wrapper", navHeight);
-}
-
 function setMargin(name, height) {
   const elm = document.getElementById(name);
   if (elm) {
