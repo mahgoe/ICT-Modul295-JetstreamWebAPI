@@ -23,7 +23,6 @@ body {
   @apply text-blue-600 dark:text-blue-600 !important;
 }
 
-
 /* Text Animation  */
 .video-container {
   position: relative;
@@ -53,7 +52,7 @@ video {
 .text2 {
   overflow: hidden;
   white-space: nowrap;
-  animation: slideText 3s linear infinite;  /* Added animation */
+  animation: slideText 3s linear infinite; /* Added animation */
 }
 
 .white-text {
@@ -74,7 +73,7 @@ video {
   }
 }
 
-@keyframes slideText {  
+@keyframes slideText {
   0% {
     margin-left: 0;
   }
@@ -83,21 +82,18 @@ video {
   }
 }
 
-
 /* New rules for the text animation with a "frame" */
 
 .text2-container {
-  width: calc(14px * 32);  /* Assume each character takes up roughly 14px and text2 has 32 characters */
-  text-align: left;  /* Align text to the left within the container */
+  width: calc(
+    14px * 32
+  ); /* Assume each character takes up roughly 14px and text2 has 32 characters */
+  text-align: left; /* Align text to the left within the container */
   white-space: nowrap;
   overflow: hidden;
 }
 
 .text2 {
   display: inline-block;
-  direction: ltr;  /* Left-to-right direction for text writing */
+  direction: ltr; /* Left-to-right direction for text writing */
 }
-
-
-
-
