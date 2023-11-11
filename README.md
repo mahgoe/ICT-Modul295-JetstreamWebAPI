@@ -22,7 +22,7 @@ After installation and database setup, you can start the API with `dotnet run`. 
 Refer to the Postman collection `JetstreamSkiserviceAPI.postman_collection.json` for examples of requests that can be made to the API.
 
 ## Database Setup
-The SQL scripts provided in the `SQLScript_JetstreamSkiserviceDB` directory can be used to create and populate the necessary tables in your SQL Server database. 
+The SQL scripts provided in the `SQLScript_JetstreamSkiserviceDB` directory can be used to select all data after you used Add-Migration and Update-Database in your Packet Manager. The nessecary data will be inserted in the migration provided by `RegistrationDbContext.cs`
 
 ## Authentication with JWT
 This API uses JWT for secure authentication. To implement JWT:
