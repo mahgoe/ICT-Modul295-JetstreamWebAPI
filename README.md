@@ -30,9 +30,3 @@ This API uses JWT for secure authentication. To implement JWT:
 2. Configure the JWT middleware in the `Startup.cs` or equivalent initialization file.
 3. Update the `appsettings.json` file with your JWT secret key and other relevant settings.
 4. Implement the logic for generating and validating tokens in the authentication endpoints.
-
-## Contributing
-Contributions to the Jetstream Ski Service API are welcome. Please ensure to update tests as appropriate.
-
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
