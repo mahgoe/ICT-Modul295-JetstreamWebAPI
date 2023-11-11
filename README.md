@@ -1,4 +1,4 @@
-# ICT-Modul 295 - Jetstream Skiservice WebAPI
+# ICT-Module 295 - Jetstream Skiservice WebAPI
 
 ## Overview
 The Jetstream Ski Service API is a robust backend service designed to manage the [Website](https://github.com/mahgoe/ICT_Modul294_Praxisarbeit) we created in the past. It provides endpoints for registration, status updates, prioriry and a JWT authentification.
