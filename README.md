@@ -24,9 +24,4 @@ Refer to the Postman collection `JetstreamSkiserviceAPI.postman_collection.json`
 ## Database Setup
 The SQL scripts provided in the `SQLScript_JetstreamSkiserviceDB` directory can be used to select all data after you used Add-Migration and Update-Database in your Packet Manager. The nessecary data will be inserted in the migration provided by `RegistrationDbContext.cs`
 
-## Authentication with JWT
-This API uses JWT for secure authentication. To implement JWT:
-1. Add the necessary JWT packages to your project.
-2. Configure the JWT middleware in the `Startup.cs` or equivalent initialization file.
-3. Update the `appsettings.json` file with your JWT secret key and other relevant settings.
-4. Implement the logic for generating and validating tokens in the authentication endpoints.
+tbt
