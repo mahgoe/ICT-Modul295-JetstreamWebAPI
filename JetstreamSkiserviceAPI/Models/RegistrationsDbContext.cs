@@ -29,6 +29,7 @@ namespace JetstreamSkiserviceAPI.Models
         public virtual DbSet<Priority> Priority { get; set; }
         public virtual DbSet<Service> Services { get; set; }
         public virtual DbSet<Status> Status { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
 
         /// <summary>
         /// Configures the model while building the database
@@ -58,6 +59,10 @@ namespace JetstreamSkiserviceAPI.Models
                 new Status { StatusId = 1, StatusName = "Offen" },
                 new Status { StatusId = 2, StatusName = "InArbeit" },
                 new Status { StatusId = 3, StatusName = "abgeschlossen" }
+                );
+
+            modelBuilder.Entity<Employee>().HasData(
+                new Employee { EmployeeId = 1, Username = "admin", Password = "password", Attempts = 0 }
                 );
 
             base.OnModelCreating(modelBuilder);

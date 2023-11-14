@@ -22,6 +22,10 @@ GO
 SELECT * FROM dbo.Services;
 GO
 
+-- Should me 1 data with admin and password
+SELECT * FROM dbo.Employees;
+GO
+
 /* 
 	All Tables in JetstreamSkiserviceDB
 */
@@ -35,4 +39,7 @@ SELECT * FROM dbo.Priority;
 GO
 
 SELECT * FROM dbo.Services;
+GO
+
+SELECT * FROM dbo.Employees;
 GO
