@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JetstreamSkiserviceAPI.Services
 {
+    /// <summary>
+    /// The RegistrationService class provides methods to get and set data from the heart of the database, implementing from IRegistrationService
+    /// </summary>
     public class RegistrationService : IRegistrationService
     {
         private readonly RegistrationsContext _context;

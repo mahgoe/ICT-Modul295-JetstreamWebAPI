@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace JetstreamSkiserviceAPI.Services
 {
     /// <summary>
-    /// The StatusService class provides methods to interact with status data in the database
+    /// The StatusService class provides methods to interact with status data in the database, implementing from IStatusService
     /// </summary>
     public class StatusService : IStatusService
     {
