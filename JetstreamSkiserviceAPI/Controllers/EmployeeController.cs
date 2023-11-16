@@ -27,6 +27,11 @@ namespace JetstreamSkiserviceAPI.Controllers
 
         public List<Employee> Employee { get; private set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
         [HttpPost("login")]
         [AllowAnonymous]
         public ActionResult Login([FromBody] AuthDto employee)
@@ -63,9 +68,23 @@ namespace JetstreamSkiserviceAPI.Controllers
                     }
                 }
 
-                return Unauthorized("User not found.");
+                return Unauthorized("User not found");
             }
             catch (Exception ex)
+            {
+                _logger.LogError($"An error occurred: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, "An internal server error occurred.");
+            }
+        }
+
+        [HttpPut("unban/{id}")]
+        public ActionResult Unban(int id) 
+        {
+            try
+            {
+                _tokenService.Unban(id);
+                return Ok("Account unbanned");
+            } catch (Exception ex)
             {
                 _logger.LogError($"An error occurred: {ex.Message}");
                 return StatusCode(StatusCodes.Status500InternalServerError, "An internal server error occurred.");
