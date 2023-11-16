@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "4b69a088-629d-470e-8e2e-7b48f6261fe1",
 		"name": "JetstreamSkiserviceAPI",
-		"description": "This collection is for every HTTP Request implemented in Jetstream Skiservice API.",
+		"description": "This collection is for every HTTP Request implemented in Jetstream Skiservice API.\n\nBe in mind, the Authentification and the Token needs to be get everyday because the Bearer Token expires within 1 day.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "29155744"
 	},
@@ -132,7 +132,7 @@
 					"response": []
 				}
 			],
-			"description": "This is a Postman Collection to run all implementet HTTP Requests for the Registrations API."
+			"description": "This is a Postman Collection to run all implementet HTTP Requests for the Registrations Route."
 		},
 		{
 			"name": "Status",
@@ -217,7 +217,73 @@
 					"response": []
 				}
 			],
-			"description": "This is a Postman Collection to run all implementet HTTP Requests for the Status API."
+			"description": "This is a Postman Collection to run all implementet HTTP Requests for the Status Route."
+		},
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Employees/login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5285/Employees/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5285",
+							"path": [
+								"Employees",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Employees/unban/{id}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJhZG1pbiIsIm5iZiI6MTcwMDA5NTcxOCwiZXhwIjoxNzAwMTgyMTE4LCJpYXQiOjE3MDAwOTU3MTh9.ehVPDLZrNvSPPOi3dwddqUleyHEEkSNXo99KM583_uXcezv_1Swmr_qr9PLnlm-JGaymbOzsgiwn-i1Lw48Sqg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5285/Employees/unban/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5285",
+							"path": [
+								"Employees",
+								"unban",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "This is a Postman Collection to run all implementet HTTP Requests for the Login Route."
 		}
 	]
 }
