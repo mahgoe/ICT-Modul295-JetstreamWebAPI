@@ -1,5 +1,6 @@
 ﻿using JetstreamSkiserviceAPI.DTO;
 using JetstreamSkiserviceAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JetstreamSkiserviceAPI.Controllers
@@ -107,8 +108,10 @@ namespace JetstreamSkiserviceAPI.Controllers
         /// <param name="registrationDto">The ID of the registration to update</param>
         /// <returns></returns>
         [HttpPut("{id}")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateRegistration(int id, RegistrationDto registrationDto)
@@ -141,7 +144,9 @@ namespace JetstreamSkiserviceAPI.Controllers
         /// <param name="id">The ID of the registration to delete</param>
         /// <returns></returns>
         [HttpDelete("{id}")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteRegistration(int id)

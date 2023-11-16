@@ -116,7 +116,12 @@ function editEntry(registrationId) {
   row.querySelector(".save-button").classList.remove("hidden");
 }
 
+function getToken() {
+  return localStorage.getItem("token");
+}
+
 function saveEntry(id) {
+  const token = getToken();
   const row = document.getElementById(`row-${id}`);
   const cells = row.querySelectorAll("td[contenteditable='true']");
   const data = {};
@@ -129,6 +134,7 @@ function saveEntry(id) {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(data),
   })
@@ -153,9 +159,13 @@ function saveEntry(id) {
 }
 
 function deleteEntry(id) {
+  const token = getToken();
   if (confirm("Sind Sie sicher, dass Sie diesen Eintrag löschen möchten?")) {
     fetch(`http://localhost:5285/Registrations/${id}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`, // Token im Header hinzufügen
+      },
     })
       .then((response) => {
         if (!response.ok) {
