@@ -175,13 +175,16 @@ function deleteEntry(id) {
     fetch(`http://localhost:5285/Registrations/${id}`, {
       method: "DELETE",
       headers: {
-        Authorization: `Bearer ${token}`, // Token im Header hinzufügen
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => {
         if (!response.ok) {
-          alert(`Fehler: ${response.statusText}`);
           throw new Error(`HTTP Fehler: ${response.status}`);
+        }
+        if (response.status === 204) {
+          // Überprüfen auf No Content
+          return null; // Kein Inhalt zum Verarbeiten
         }
         return response.json();
       })
