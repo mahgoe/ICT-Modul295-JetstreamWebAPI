@@ -49,6 +49,7 @@ namespace JetstreamSkiserviceAPI.Services
                     Priority = r.Priority.PriorityName,
                     Service = r.Service.ServiceName,
                     Status = s.StatusName,
+                    Price = r.Price,
                     Comment = r.Comment
                 }).ToList()
             }).ToList();

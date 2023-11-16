@@ -54,6 +54,17 @@ function fetchOrdersByStatus(status) {
     .catch((error) => console.error(`Fetch Fehler bei ${status}:`, error));
 }
 
+function fetchOrdersByPriority(priority) {
+  fetch(`http://localhost:5285/Priority/${priority}`)
+    .then((response) => response.json())
+    .then((data) => {
+      updateTableWithOrders(data);
+    })
+    .catch((error) =>
+      console.error(`Fetch Fehler bei Priorität ${priority}:`, error)
+    );
+}
+
 function updateTableWithOrders(data) {
   // Überprüfen, ob data nicht null oder undefined ist und ob es das 'registration'-Array enthält
   if (!data || !data.registration || data.registration.length === 0) {
@@ -210,4 +221,13 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .getElementById("doneOrdersBtn")
     .addEventListener("click", () => fetchOrdersByStatus("abgeschlossen"));
+  document
+    .getElementById("tiefOrdersBtn")
+    .addEventListener("click", () => fetchOrdersByPriority("Tief"));
+  document
+    .getElementById("standardOrdersBtn")
+    .addEventListener("click", () => fetchOrdersByPriority("Standard"));
+  document
+    .getElementById("expressOrdersBtn")
+    .addEventListener("click", () => fetchOrdersByPriority("Express"));
 });
