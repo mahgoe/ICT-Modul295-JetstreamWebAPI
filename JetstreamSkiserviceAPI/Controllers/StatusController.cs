@@ -15,14 +15,14 @@ namespace JetstreamSkiserviceAPI.Controllers
     public class StatusController : ControllerBase
     {
         private readonly IStatusService _statusService;
-        private readonly ILogger<RegistrationsController> _logger;
+        private readonly ILogger<StatusController> _logger;
 
         /// <summary>
         /// Constructor for the StatusController
         /// </summary>
         /// <param name="status">Implementation of the IStatusService interface</param>
         /// <param name="logger">Logger for logging information and errors</param>
-        public StatusController(IStatusService status, ILogger<RegistrationsController> logger)
+        public StatusController(IStatusService status, ILogger<StatusController> logger)
         {
             _statusService = status;
             _logger = logger;
