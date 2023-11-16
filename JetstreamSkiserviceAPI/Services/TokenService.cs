@@ -1,5 +1,4 @@
-﻿
-using JetstreamSkiserviceAPI.Models;
+﻿using JetstreamSkiserviceAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;

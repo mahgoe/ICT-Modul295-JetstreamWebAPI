@@ -38,6 +38,7 @@ namespace JetstreamSkiserviceAPI
             // Add Scopes from the implemented interfaces
             builder.Services.AddScoped<IRegistrationService, RegistrationService>();
             builder.Services.AddScoped<IStatusService, StatusService>();
+            builder.Services.AddScoped<IPriorityService, PriorityService>();
             builder.Services.AddScoped<ITokenService, TokenService>();
 
             // Configure JWT Token
