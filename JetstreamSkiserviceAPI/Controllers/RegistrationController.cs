@@ -140,7 +140,7 @@ namespace JetstreamSkiserviceAPI.Controllers
         /// </summary>
         /// <param name="id">The ID of the registration to delete</param>
         /// <returns></returns>
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

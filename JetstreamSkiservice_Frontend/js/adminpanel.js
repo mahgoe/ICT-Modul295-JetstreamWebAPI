@@ -21,8 +21,9 @@ function fetchData() {
                     <tr id="row-${row.registrationId}">
                       ${rowData}
                       <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <button onclick="editEntry(${row.registrationId})" class="edit-button">Ändern</button>
-                        <button onclick="saveEntry(${row.registrationId})" class="save-button hidden">Speichern</button>
+                      <button onclick="editEntry(${row.registrationId})" class="edit-button border border-gray-300 shadow-sm rounded px-2 py-1 m-1">Ändern</button>
+                      <button onclick="saveEntry(${row.registrationId})" class="save-button hidden border border-gray-300 shadow-sm rounded px-2 py-1 m-1">Speichern</button>
+                      <button onclick="deleteEntry(${row.registrationId})" class="delete-button border border-gray-300 shadow-sm rounded px-2 py-1 m-1">Löschen</button>
                       </td>
                     </tr>
                   `;
@@ -88,6 +89,28 @@ function saveEntry(id) {
     .catch((error) => {
       alert(`Fehler beim Speichern: ${error.message}`);
     });
+}
+
+function deleteEntry(id) {
+  if (confirm("Sind Sie sicher, dass Sie diesen Eintrag löschen möchten?")) {
+    fetch(`http://localhost:5285/Registrations/${id}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (!response.ok) {
+          alert(`Fehler: ${response.statusText}`);
+          throw new Error(`HTTP Fehler: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(() => {
+        document.getElementById(`row-${id}`).remove();
+        alert("Eintrag erfolgreich gelöscht.");
+      })
+      .catch((error) => {
+        alert(`Fehler beim Löschen: ${error.message}`);
+      });
+  }
 }
 
 function showSuccessModal() {
