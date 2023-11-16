@@ -118,7 +118,6 @@ function validatePhoneNumber(field) {
     return false;
   }
   return true;
-  console.log("Telefon richtig");
 }
 
 function formatDate(dateString) {

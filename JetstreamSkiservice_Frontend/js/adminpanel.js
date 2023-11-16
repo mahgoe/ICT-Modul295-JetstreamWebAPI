@@ -48,7 +48,6 @@ function fetchOrdersByStatus(status) {
   fetch(`http://localhost:5285/Status/${status}`)
     .then((response) => response.json())
     .then((data) => {
-      console.log(`Daten für Status ${status}:`, data); // Überprüfen der zurückgegebenen Daten
       updateTableWithOrders(data);
     })
     .catch((error) => console.error(`Fetch Fehler bei ${status}:`, error));
