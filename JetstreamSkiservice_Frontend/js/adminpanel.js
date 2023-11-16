@@ -44,6 +44,67 @@ function fetchData() {
     .catch((error) => console.error("Fetch Fehler:", error));
 }
 
+function fetchOrdersByStatus(status) {
+  fetch(`http://localhost:5285/Status/${status}`)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(`Daten für Status ${status}:`, data); // Überprüfen der zurückgegebenen Daten
+      updateTableWithOrders(data);
+    })
+    .catch((error) => console.error(`Fetch Fehler bei ${status}:`, error));
+}
+
+function updateTableWithOrders(data) {
+  // Überprüfen, ob data nicht null oder undefined ist und ob es das 'registration'-Array enthält
+  if (!data || !data.registration || data.registration.length === 0) {
+    document.getElementById("output").innerHTML =
+      "<p>Keine Daten gefunden.</p>";
+    return;
+  }
+
+  const registrations = data.registration; // Direkter Zugriff auf das 'registration'-Array
+
+  const tableHeaders = Object.keys(registrations[0])
+    .map(
+      (key) =>
+        `<th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">${key}</th>`
+    )
+    .join("");
+
+  const tableRows = registrations
+    .map((row) => {
+      const rowData = Object.entries(row)
+        .map(
+          ([key, value]) =>
+            `<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" contenteditable="false" data-key="${key}">${value}</td>`
+        )
+        .join("");
+
+      return `
+        <tr id="row-${row.registrationId}">
+          ${rowData}
+          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+            <button onclick="editEntry(${row.registrationId})" class="edit-button border border-gray-300 shadow-sm rounded px-2 py-1 m-1">Ändern</button>
+            <button onclick="saveEntry(${row.registrationId})" class="save-button hidden border border-gray-300 shadow-sm rounded px-2 py-1 m-1">Speichern</button>
+            <button onclick="deleteEntry(${row.registrationId})" class="delete-button border border-gray-300 shadow-sm rounded px-2 py-1 m-1">Löschen</button>
+          </td>
+        </tr>
+      `;
+    })
+    .join("");
+
+  document.getElementById("output").innerHTML = `
+    <table class="min-w-full leading-normal">
+      <thead>
+        <tr>${tableHeaders}<th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Aktionen</th></tr>
+      </thead>
+      <tbody>
+        ${tableRows}
+      </tbody>
+    </table>
+  `;
+}
+
 function editEntry(registrationId) {
   const row = document.getElementById(`row-${registrationId}`);
   Array.from(row.querySelectorAll("td[contenteditable='false']")).forEach(
@@ -127,6 +188,16 @@ function showErrorModal(message) {
     document.getElementById("errorModal").classList.add("hidden");
   }, 3000);
 }
+
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("allOrdersBtn").addEventListener("click", fetchData);
+  document
+    .getElementById("openOrdersBtn")
+    .addEventListener("click", () => fetchOrdersByStatus("Offen"));
+  document
+    .getElementById("inWorkOrdersBtn")
+    .addEventListener("click", () => fetchOrdersByStatus("InArbeit"));
+  document
+    .getElementById("doneOrdersBtn")
+    .addEventListener("click", () => fetchOrdersByStatus("abgeschlossen"));
 });
