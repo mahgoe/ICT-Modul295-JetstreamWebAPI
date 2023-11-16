@@ -9,6 +9,9 @@ using FluentAssertions;
 
 namespace JetstreamSkiserviceAPI_Test.ControllerTests
 {
+    /// <summary>
+    /// xUnit Tests for RegistrationController
+    /// </summary>
     public class RegistrationsControllerTests
     {
         private readonly Mock<IRegistrationService> _mockRegistrationService = new Mock<IRegistrationService>();

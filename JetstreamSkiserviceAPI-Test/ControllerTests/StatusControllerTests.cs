@@ -8,6 +8,9 @@ using FluentAssertions;
 
 namespace JetstreamSkiserviceAPI_Test.ControllerTests
 {
+    /// <summary>
+    /// xUnit Tests for StatusController
+    /// </summary>
     public class StatusControllerTests
     {
         private readonly Mock<IStatusService> _mockStatusService = new Mock<IStatusService>();
