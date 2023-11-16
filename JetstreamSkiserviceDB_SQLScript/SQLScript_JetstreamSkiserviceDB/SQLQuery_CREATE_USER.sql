@@ -2,32 +2,36 @@
 	This Query creates a admin login for the JetstreamSkiservice database.
 */
 
--- Wechseln zu master-Datenbank, um den Login zu erstellen
+-- Change master to create user
 USE master;
 GO
 
--- Erstellen eines neuen Logins
+-- Give the login a role
+ALTER SERVER ROLE sysadmin ADD MEMBER JetstreamSkiservice_admin;
+GO
+
+-- Create new login with password
 CREATE LOGIN JetstreamSkiservice_admin WITH PASSWORD = 'password';
 GO
 
--- Wechseln zu Ihrer spezifischen Datenbank
+-- Change to the specific database
 USE JetstreamSkiserviceDB;
 GO
 
--- Erstellen eines Benutzers, der mit dem neuen Login verknüpft ist
+-- Create a new user with the login
 CREATE USER JetstreamSkiservice_admin FOR LOGIN JetstreamSkiservice_admin;
 GO
 
--- Erstellen der Rolle DB_employee
-CREATE ROLE DB_employee;
+-- Add user to the role
+ALTER ROLE db_owner ADD MEMBER JetstreamSkiservice_admin;
 GO
 
--- Gewähren von Berechtigungen
+-- Give permissions to the role
 GRANT INSERT, SELECT, UPDATE, DELETE ON OBJECT::dbo.Employees TO DB_employee;
 GRANT INSERT, SELECT, UPDATE, DELETE ON OBJECT::dbo.Priority TO DB_employee;
 GRANT INSERT, SELECT, UPDATE, DELETE ON OBJECT::dbo.Registrations TO DB_employee;
 GRANT INSERT, SELECT, UPDATE, DELETE ON OBJECT::dbo.Services TO DB_employee;
 GRANT INSERT, SELECT, UPDATE, DELETE ON OBJECT::dbo.Status TO DB_employee;
 
--- Zuordnen des Benutzers zur Rolle
+-- Assigning the user to the role
 EXEC sp_addrolemember 'DB_employee', 'JetstreamSkiservice_admin';
