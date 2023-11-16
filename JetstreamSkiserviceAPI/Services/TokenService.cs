@@ -66,7 +66,7 @@ namespace JetstreamSkiserviceAPI.Services
         /// Retrieves a list of all employees for the login check
         /// </summary>
         /// <returns>A list of Employee objects</returns>
-        public List<Employee> Login()
+        public List<Employee> GetEmployees()
         {
             List<Employee> employees = new List<Employee>();
             employees = _registrationsContext.Employees.ToList();

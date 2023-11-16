@@ -8,11 +8,11 @@ namespace JetstreamSkiserviceAPI.Models
         public int EmployeeId { get; set; }
 
         [StringLength(50)]
-        public string Username { get; set; }
+        public string? Username { get; set; }
 
         [StringLength(50)]
-        public string Password { get; set; }
+        public string? Password { get; set; }
 
-        public int Attempts { get; set; }
+        public int? Attempts { get; set; }
     }
 }

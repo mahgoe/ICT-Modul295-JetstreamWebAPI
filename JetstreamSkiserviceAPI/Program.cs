@@ -1,7 +1,11 @@
 using JetstreamSkiserviceAPI.Models;
 using JetstreamSkiserviceAPI.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.OpenApi.Models;
 using Serilog;
+using System.Text;
 
 namespace JetstreamSkiserviceAPI
 {
@@ -36,6 +40,21 @@ namespace JetstreamSkiserviceAPI
             builder.Services.AddScoped<IStatusService, StatusService>();
             builder.Services.AddScoped<ITokenService, TokenService>();
 
+            // Configure JWT Token
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"])),
+                        ValidAudience = builder.Configuration["JWT:Key"],
+                        ValidIssuer = builder.Configuration["JWT:Key"],
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
+
             // Configure CORS
             builder.Services.AddCors(options =>
             {
@@ -48,7 +67,10 @@ namespace JetstreamSkiserviceAPI
             });
 
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Jetstream Web API", Version = "v1" });
+            });
 
             builder.Services.AddAuthorization();
             builder.Services.AddControllers();

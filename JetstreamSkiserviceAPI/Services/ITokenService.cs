@@ -18,7 +18,7 @@ namespace JetstreamSkiserviceAPI.Services
         /// Handles the login process
         /// </summary>
         /// <returns></returns>
-        List<Employee> Login();
+        List<Employee> GetEmployees();
 
         /// <summary>
         /// Records a login attempt for a specified employee

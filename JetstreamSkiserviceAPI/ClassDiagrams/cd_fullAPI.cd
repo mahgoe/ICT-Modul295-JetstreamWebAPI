@@ -79,20 +79,20 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
+  <Class Name="JetstreamSkiserviceAPI.Services.TokenService">
+    <Position X="10.5" Y="9.5" Width="5.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAgAAAAACAAIAAAAAAAAAAAAQAAAEAAAA=</HashCode>
+      <FileName>Services\TokenService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
   <Class Name="JetstreamSkiserviceAPI.Program">
     <Position X="10.5" Y="0.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Program.cs</FileName>
     </TypeIdentifier>
-  </Class>
-  <Class Name="JetstreamSkiserviceAPI.Services.TokenService">
-    <Position X="10.5" Y="9.5" Width="5.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAEAAAAAAAAAAACAAIAAAAAAAAAAAAQQAAEAAAA=</HashCode>
-      <FileName>Services\TokenService.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Interface Name="JetstreamSkiserviceAPI.Services.IRegistrationService">
     <Position X="0.75" Y="7" Width="4.75" />
@@ -111,7 +111,7 @@
   <Interface Name="JetstreamSkiserviceAPI.Services.ITokenService">
     <Position X="10.5" Y="7" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAQQAAEAAAA=</HashCode>
+      <HashCode>AAAAAAEAAAAAgAAAAAAAAAAAAAAAAAAAAAQAAAEAAAA=</HashCode>
       <FileName>Services\ITokenService.cs</FileName>
     </TypeIdentifier>
   </Interface>
