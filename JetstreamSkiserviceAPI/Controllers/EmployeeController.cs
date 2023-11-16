@@ -3,13 +3,11 @@ using JetstreamSkiserviceAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using JetstreamSkiserviceAPI.Models;
-using System.Diagnostics.Eventing.Reader;
-using System.Linq.Expressions;
 
 namespace JetstreamSkiserviceAPI.Controllers
 {
     /// <summary>
-    /// 
+    /// Controller for handling HTTP requests related to login/employee-login
     /// </summary>
     [ApiController]
     [Route("[controller]")]
@@ -19,21 +17,32 @@ namespace JetstreamSkiserviceAPI.Controllers
         private readonly ITokenService _tokenService;
         private readonly ILogger<EmployeesController> _logger;
 
+        /// <summary>
+        /// Constructor for the EmployeeController
+        /// </summary>
+        /// <param name="tokenService">Implementation of the ITokenService interface</param>
+        /// <param name="logger">Logger for logging information and errors</param>
         public EmployeesController(ITokenService tokenService, ILogger<EmployeesController> logger)
         {
             _tokenService = tokenService;
             _logger = logger;
         }
 
+        /// <summary>
+        /// List all existing Employees
+        /// </summary>
         public List<Employee> Employee { get; private set; }
 
         /// <summary>
-        /// 
+        /// Handles user login requests by checking credentials and returns a token if successful
         /// </summary>
-        /// <param name="employee"></param>
-        /// <returns></returns>
+        /// <param name="employee">Contains the username and password for authentication</param>
+        /// <returns>A response indicating if the login was successful or not</returns>
         [HttpPost("login")]
         [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult Login([FromBody] AuthDto employee)
         {
             try
@@ -77,7 +86,14 @@ namespace JetstreamSkiserviceAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Unbans a user account based on the provided ID
+        /// </summary>
+        /// <param name="id">The ID of the employee to unban</param>
+        /// <returns>A response indicating whether the unban was successful or not</returns>
         [HttpPut("unban/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult Unban(int id) 
         {
             try

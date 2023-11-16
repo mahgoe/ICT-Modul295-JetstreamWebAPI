@@ -1,5 +1,8 @@
 ﻿namespace JetstreamSkiserviceAPI.DTO
 {
+    /// <summary>
+    /// Data Transfer Object representing priority
+    /// </summary>
     public class PriorityDto
     {
         public int? PriorityId { get; set; }

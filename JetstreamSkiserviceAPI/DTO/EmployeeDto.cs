@@ -1,5 +1,8 @@
 ﻿namespace JetstreamSkiserviceAPI.DTO
 {
+    /// <summary>
+    /// Data Transfer Object representing employee
+    /// </summary>
     public class EmployeeDto
     {
         public int EmployeeId { get; set; }

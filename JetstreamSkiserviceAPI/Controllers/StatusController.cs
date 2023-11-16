@@ -29,7 +29,7 @@ namespace JetstreamSkiserviceAPI.Controllers
         }
 
         /// <summary>
-        /// andles GET requests to retrieve all status entities
+        /// Handles GET requests to retrieve all status entities
         /// </summary>
         /// <returns>A list sorted by status</returns>
         [HttpGet]

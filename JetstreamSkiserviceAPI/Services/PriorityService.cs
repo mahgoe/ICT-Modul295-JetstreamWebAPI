@@ -4,15 +4,26 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JetstreamSkiserviceAPI.Services
 {
+    /// <summary>
+    /// The PriorityService class provides methods to interact with priority data in the database, implementing from IPriorityService
+    /// </summary>
     public class PriorityService : IPriorityService
     {
         private readonly RegistrationsContext _context;
 
+        /// <summary>
+        /// Constructor for the PriorityService class
+        /// </summary>
+        /// <param name="context">The database context used for data operations</param>
         public PriorityService(RegistrationsContext context)
         {
             _context = context;
         }
 
+        /// <summary>
+        /// Retrieves all priorities along with their associated registrations from the database
+        /// </summary>
+        /// <returns>A collection of registrations ordered by priorities</returns>
         public async Task<IEnumerable<PriorityDto>> GetAll()
         {
             var priorities = await _context.Priority
@@ -44,6 +55,11 @@ namespace JetstreamSkiserviceAPI.Services
             }).ToList();
         }
 
+        /// <summary>
+        /// Retrieves a single priority by its name along with its associated registrations
+        /// </summary>
+        /// <param name="priorityName">The name of the priority to retrieve (Tief/Standard/Express)</param>
+        /// <returns>A collection of registrations with the associated priority</returns>
         public async Task<PriorityDto> GetByPriority(string priorityName)
         {
             var allPriorities = await GetAll();

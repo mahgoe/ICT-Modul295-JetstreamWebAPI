@@ -23,7 +23,7 @@ namespace JetstreamSkiserviceAPI.Services
         /// <summary>
         /// Retrieves all statuses along with their associated registrations from the database
         /// </summary>
-        /// <returns>A collection of Registrations ordered by status</returns>
+        /// <returns>A collection of registrations ordered by status</returns>
         public async Task<IEnumerable<StatusDto>> GetAll()
         {
             var statuses = await _context.Status
