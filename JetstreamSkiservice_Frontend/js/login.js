@@ -17,14 +17,27 @@ document
         if (response.ok) {
           return response.json();
         } else {
+          if (response.status === 401) {
+            return response.text().then((text) => {
+              throw new Error(text);
+            });
+          }
           throw new Error("Failed to login");
         }
       })
       .then((data) => {
-        localStorage.setItem("token", data.token); // stores the Token in the local storage
+        localStorage.setItem("token", data.token);
         window.location.href = "/adminconfirm.html";
       })
       .catch((error) => {
-        console.error("Login Error:", error);
+        if (
+          error.message.includes(
+            "Your account is locked. Please contact administrator."
+          )
+        ) {
+          window.location.href = "/adminshutdown.html";
+        } else {
+          console.error("Login Error:", error);
+        }
       });
   });
