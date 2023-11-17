@@ -1,5 +1,5 @@
 function fetchData() {
-  fetch("http://localhost:5285/Registrations")
+  fetch("/Registrations")
     .then((response) => response.json())
     .then((data) => {
       const outputDiv = document.getElementById("output");
@@ -45,7 +45,7 @@ function fetchData() {
 }
 
 function fetchOrdersByStatus(status) {
-  fetch(`http://localhost:5285/Status/${status}`)
+  fetch(`/Status/${status}`)
     .then((response) => response.json())
     .then((data) => {
       updateTableWithOrders(data);
@@ -54,7 +54,7 @@ function fetchOrdersByStatus(status) {
 }
 
 function fetchOrdersByPriority(priority) {
-  fetch(`http://localhost:5285/Priority/${priority}`)
+  fetch(`/Priority/${priority}`)
     .then((response) => response.json())
     .then((data) => {
       updateTableWithOrders(data);
@@ -140,7 +140,7 @@ function saveEntry(id) {
     data[key] = cell.textContent.trim();
   });
 
-  fetch(`http://localhost:5285/Registrations/${id}`, {
+  fetch(`/Registrations/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -171,7 +171,7 @@ function saveEntry(id) {
 function deleteEntry(id) {
   const token = getToken();
   if (confirm("Sind Sie sicher, dass Sie diesen Eintrag löschen möchten?")) {
-    fetch(`http://localhost:5285/Registrations/${id}`, {
+    fetch(`/Registrations/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,

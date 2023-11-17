@@ -155,7 +155,7 @@ function formatDate(dateString) {
 }
 
 function postData(firstName, lastName, email) {
-  fetch("http://localhost:5285/Registrations", {
+  fetch("/Registrations", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -173,7 +173,7 @@ function postData(firstName, lastName, email) {
       status: "Offen",
       service: document.getElementById("serviceDropdown").value,
       price: document.getElementById("total").value,
-      comment: "Test",
+      comment: "",
     }),
   })
     .then((response) => {

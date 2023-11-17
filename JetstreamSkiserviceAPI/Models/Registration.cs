@@ -18,24 +18,32 @@ namespace JetstreamSkiserviceAPI.Models
         /// FirstName of the person registering for the ski service
         /// </summary>
         [StringLength(255)]
+        [Required(ErrorMessage = "Bitte einen gültigen Vornamen eingeben.")]
+        [RegularExpression("^[a-zA-ZäöüÄÖÜ]+([- ][a-zA-ZäöüÄÖÜ]+)*$", ErrorMessage = "Ungültiges Format für den Vornamen.")]
         public string? FirstName { get; set; }
 
         /// <summary>
         /// LastName of the person registering for the ski service
         /// </summary>
         [StringLength(255)]
+        [Required(ErrorMessage = "Bitte einen gültigen Nachnamen eingeben.")]
+        [RegularExpression("^[a-zA-ZäöüÄÖÜ]+([- ][a-zA-ZäöüÄÖÜ]+)*$", ErrorMessage = "Ungültiges Format für den Nachnamen.")]
         public string? LastName { get; set; }
 
         /// <summary>
         /// Email address of the person registering for the ski service
         /// </summary>
         [StringLength(255)]
+        [Required(ErrorMessage = "Bitte eine gültige E-Mail eingeben.")]
+        [EmailAddress(ErrorMessage = "Ungültiges E-Mail Format.")]
         public string? Email { get; set; }
 
         /// <summary>
         /// Phone number of the person registering for the ski service
         /// </summary>
         [StringLength(30)]
+        [Required(ErrorMessage = "Bitte eine gültige Telefonnummer eingeben.")]
+        [RegularExpression(@"(\b(0041|0)|\B\+41)(\s?\(0\))?(\s)?[1-9]{2}(\s)?[0-9]{3}(\s)?[0-9]{2}(\s)?[0-9]{2}\b", ErrorMessage = "Ungültiges Telefonnummern-Format.")]
         public string? Phone { get; set; }
 
         /// <summary>

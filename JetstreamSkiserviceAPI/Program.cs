@@ -86,7 +86,7 @@ namespace JetstreamSkiserviceAPI
             }
 
             app.UseHttpsRedirection();
-
+            app.UseStaticFiles();
             app.UseCors(); // Activate CORS
 
             app.UseAuthentication();
