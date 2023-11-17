@@ -76,7 +76,6 @@ namespace JetstreamSkiserviceAPI.Controllers
                         }
                     }
                 }
-
                 return Unauthorized("User not found");
             }
             catch (Exception ex)
