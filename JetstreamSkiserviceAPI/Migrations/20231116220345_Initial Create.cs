@@ -14,6 +14,21 @@ namespace JetstreamSkiserviceAPI.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Employees",
+                columns: table => new
+                {
+                    EmployeeId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Attempts = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Employees", x => x.EmployeeId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Priority",
                 columns: table => new
                 {
@@ -91,6 +106,11 @@ namespace JetstreamSkiserviceAPI.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Employees",
+                columns: new[] { "EmployeeId", "Attempts", "Password", "Username" },
+                values: new object[] { 1, 0, "password", "admin" });
+
+            migrationBuilder.InsertData(
                 table: "Priority",
                 columns: new[] { "PriorityId", "PriorityName" },
                 values: new object[,]
@@ -142,6 +162,9 @@ namespace JetstreamSkiserviceAPI.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Employees");
+
             migrationBuilder.DropTable(
                 name: "Registrations");
 
