@@ -140,7 +140,8 @@ namespace JetstreamSkiserviceAPI.Migrations
                 {
                     { 1, "Offen" },
                     { 2, "InArbeit" },
-                    { 3, "abgeschlossen" }
+                    { 3, "abgeschlossen" },
+                    { 4, "storniert" }
                 });
 
             migrationBuilder.CreateIndex(

@@ -233,6 +233,11 @@ namespace JetstreamSkiserviceAPI.Migrations
                         {
                             StatusId = 3,
                             StatusName = "abgeschlossen"
+                        },
+                        new
+                        {
+                            StatusId = 4,
+                            StatusName = "storniert"
                         });
                 });
 

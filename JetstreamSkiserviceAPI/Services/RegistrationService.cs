@@ -26,23 +26,27 @@ namespace JetstreamSkiserviceAPI.Services
         /// </summary>
         public async Task<IEnumerable<RegistrationDto>> GetRegistrations()
         {
-            return await _context.Registrations
-                .Select(Registration => new RegistrationDto
+            // Filtert alle Registrierungen heraus, deren Status nicht "storniert" ist
+            var registrations = await _context.Registrations
+                .Where(r => r.Status.StatusName != "storniert")
+                .Select(r => new RegistrationDto
                 {
-                    RegistrationId = Registration.RegistrationId,
-                    FirstName = Registration.FirstName,
-                    LastName = Registration.LastName,
-                    Email = Registration.Email,
-                    Phone = Registration.Phone,
-                    Create_date = Registration.Create_date,
-                    Pickup_date = Registration.Pickup_date,
-                    Status = Registration.Status.StatusName,
-                    Priority = Registration.Priority.PriorityName,
-                    Service = Registration.Service.ServiceName,
-                    Price = Registration.Price,
-                    Comment = Registration.Comment
+                    RegistrationId = r.RegistrationId,
+                    FirstName = r.FirstName,
+                    LastName = r.LastName,
+                    Email = r.Email,
+                    Phone = r.Phone,
+                    Create_date = r.Create_date,
+                    Pickup_date = r.Pickup_date,
+                    Status = r.Status.StatusName,
+                    Priority = r.Priority.PriorityName,
+                    Service = r.Service.ServiceName,
+                    Price = r.Price,
+                    Comment = r.Comment
                 })
                 .ToListAsync();
+
+            return registrations;
         }
 
         /// <summary>

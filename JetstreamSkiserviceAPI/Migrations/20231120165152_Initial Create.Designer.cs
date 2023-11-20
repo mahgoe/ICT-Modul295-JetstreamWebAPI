@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JetstreamSkiserviceAPI.Migrations
 {
     [DbContext(typeof(RegistrationsContext))]
-    [Migration("20231120095053_Initial Create")]
+    [Migration("20231120165152_Initial Create")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -236,6 +236,11 @@ namespace JetstreamSkiserviceAPI.Migrations
                         {
                             StatusId = 3,
                             StatusName = "abgeschlossen"
+                        },
+                        new
+                        {
+                            StatusId = 4,
+                            StatusName = "storniert"
                         });
                 });
 

@@ -10,7 +10,7 @@ GO
 	These Tables got from OnModelCreating standard values
 */
 
--- Should be 3 datas (1-Offen, 2-InArbeit, 3-abgeschlossen)
+-- Should be 4 datas (1-Offen, 2-InArbeit, 3-abgeschlossen 4-storniert)
 SELECT * FROM dbo.Status;
 GO
 

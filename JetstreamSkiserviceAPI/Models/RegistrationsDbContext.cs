@@ -58,7 +58,8 @@ namespace JetstreamSkiserviceAPI.Models
             modelBuilder.Entity<Status>().HasData(
                 new Status { StatusId = 1, StatusName = "Offen" },
                 new Status { StatusId = 2, StatusName = "InArbeit" },
-                new Status { StatusId = 3, StatusName = "abgeschlossen" }
+                new Status { StatusId = 3, StatusName = "abgeschlossen" },
+                new Status { StatusId = 4, StatusName = "storniert" }
                 );
 
             modelBuilder.Entity<Employee>().HasData(

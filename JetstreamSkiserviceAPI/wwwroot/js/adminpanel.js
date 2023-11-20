@@ -11,8 +11,6 @@ function fetchData() {
   fetch("/Registrations")
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
-
       const tableHeaders = Object.keys(data[0])
         .map((key) => {
           return `<th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">${key}</th>`;
@@ -222,8 +220,6 @@ function saveEntry(id) {
     data[key] = value;
   });
 
-  console.log("Daten, die an den Server gesendet werden:", data);
-
   fetch(`/Registrations/${id}`, {
     method: "PUT",
     headers: {
@@ -246,43 +242,65 @@ function saveEntry(id) {
       Array.from(cells).forEach((cell) => {
         cell.contentEditable = false;
       });
+      fetchData();
     })
     .catch((error) => {
-      console.log("Daten, die an den Server gesendet werden:", data);
       alert(`Fehler beim Speichern: ${error.message}`);
     });
 }
 
 function deleteEntry(id) {
   const token = getToken();
-  if (confirm("Sind Sie sicher, dass Sie diesen Eintrag löschen möchten?")) {
-    fetch(`/Registrations/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+  const row = document.getElementById(`row-${id}`);
+  const cells = row.querySelectorAll("td");
+  const data = { registrationId: id };
+
+  cells.forEach((cell) => {
+    const key = cell.getAttribute("data-key");
+    if (!key) return;
+
+    let value = cell.innerText.trim();
+
+    if (cell.querySelector("select")) {
+      value = cell.querySelector("select").value;
+    } else if (cell.isContentEditable) {
+      value = cell.textContent.trim();
+    }
+
+    if (key === "create_date" || key === "pickup_date") {
+      value = formatDate(value);
+    }
+
+    data[key] = value;
+  });
+
+  data.status = "storniert"; // Status explizit auf "storniert" setzen
+
+  fetch(`/Registrations/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP Fehler: ${response.status}`);
+      }
+      return response.json();
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP Fehler: ${response.status}`);
-        }
-        if (response.status === 204) {
-          return null;
-        }
-        return response.json();
-      })
-      .then(() => {
-        document.getElementById(`row-${id}`).remove();
-        alert("Eintrag erfolgreich gelöscht.");
-      })
-      .catch((error) => {
-        alert(`Fehler beim Löschen: ${error.message}`);
-      });
-  }
+    .then(() => {
+      alert("Eintrag erfolgreich storniert.");
+      fetchData(); // Neuladen der Daten
+    })
+    .catch((error) => {
+      alert(`Fehler beim Aktualisieren des Status: ${error.message}`);
+    });
 }
 
 function createStatusDropdown(selectedValue) {
-  const options = ["Offen", "InArbeit", "abgeschlossen"]
+  const options = ["Offen", "InArbeit", "abgeschlossen", "storniert"]
     .map(
       (option) =>
         `<option value="${option}" ${
