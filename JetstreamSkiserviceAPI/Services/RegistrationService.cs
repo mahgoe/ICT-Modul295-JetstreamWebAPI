@@ -135,8 +135,8 @@ namespace JetstreamSkiserviceAPI.Services
                 throw new KeyNotFoundException("Referenced ID or Item not found or doesn't exist");
             }
 
-            registration.FirstName = registration.FirstName;
-            registration.LastName = registration.LastName;
+            registration.FirstName = registrationDto.FirstName;
+            registration.LastName = registrationDto.LastName;
             registration.Email = registrationDto.Email;
             registration.Phone = registrationDto.Phone;
             registration.Create_date = registrationDto.Create_date;

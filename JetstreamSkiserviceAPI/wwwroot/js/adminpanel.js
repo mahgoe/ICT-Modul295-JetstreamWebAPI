@@ -65,14 +65,13 @@ function fetchOrdersByPriority(priority) {
 }
 
 function updateTableWithOrders(data) {
-  // Überprüfen, ob data nicht null oder undefined ist und ob es das 'registration'-Array enthält
   if (!data || !data.registration || data.registration.length === 0) {
     document.getElementById("output").innerHTML =
       "<p>Keine Daten gefunden.</p>";
     return;
   }
 
-  const registrations = data.registration; // Direkter Zugriff auf das 'registration'-Array
+  const registrations = data.registration;
 
   const tableHeaders = Object.keys(registrations[0])
     .map(
@@ -114,59 +113,81 @@ function updateTableWithOrders(data) {
     </table>
   `;
 }
-
 function editEntry(registrationId) {
-  const row = document.getElementById(`row-${registrationId}`);
-  Array.from(row.querySelectorAll("td[contenteditable='false']")).forEach(
-    (cell) => {
-      cell.contentEditable = true;
-    }
-  );
-  row.querySelector(".edit-button").classList.add("hidden");
-  row.querySelector(".save-button").classList.remove("hidden");
+    const row = document.getElementById(`row-${registrationId}`);
+    const cells = row.querySelectorAll("td");
+
+    cells.forEach((cell) => {
+        const key = cell.getAttribute("data-key");
+        let value = cell.textContent.trim();
+
+        if (key === "status") {
+            cell.innerHTML = createStatusDropdown(value);
+        } else if (key === "priority") {
+            cell.innerHTML = createPriorityDropdown(value);
+        } else if (key === "service") {
+            cell.innerHTML = createServiceDropdown(value);
+        } else if (key) {
+            cell.contentEditable = true;
+        }
+    });
+
+    row.querySelector(".edit-button").classList.add("hidden");
+    row.querySelector(".save-button").classList.remove("hidden");
 }
+
 
 function getToken() {
   return localStorage.getItem("token");
 }
 
 function saveEntry(id) {
-  const token = getToken();
-  const row = document.getElementById(`row-${id}`);
-  const cells = row.querySelectorAll("td[contenteditable='true']");
-  const data = {};
-  cells.forEach((cell) => {
-    const key = cell.getAttribute("data-key");
-    data[key] = cell.textContent.trim();
-  });
+    const token = getToken();
+    const row = document.getElementById(`row-${id}`);
+    const cells = row.querySelectorAll("td");
+    const data = {};
 
-  fetch(`/Registrations/${id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(data),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        alert(`Fehler: ${response.statusText}`);
-        throw new Error(`HTTP Fehler: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then((updatedEntry) => {
-      alert("Eintrag erfolgreich gespeichert.");
-      row.querySelector(".edit-button").classList.remove("hidden");
-      row.querySelector(".save-button").classList.add("hidden");
-      Array.from(cells).forEach((cell) => {
-        cell.contentEditable = false;
-      });
-    })
-    .catch((error) => {
-      alert(`Fehler beim Speichern: ${error.message}`);
+    cells.forEach((cell) => {
+        const key = cell.getAttribute("data-key");
+        let value;
+
+        if (cell.querySelector("select")) {
+            value = cell.querySelector("select").value;
+        } else {
+            value = cell.textContent.trim();
+        }
+
+        data[key] = value;
     });
+
+    fetch(`/Registrations/${id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+    })
+        .then((response) => {
+            if (!response.ok) {
+                alert(`Fehler: ${response.statusText}`);
+                throw new Error(`HTTP Fehler: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then((updatedEntry) => {
+            alert("Eintrag erfolgreich gespeichert.");
+            row.querySelector(".edit-button").classList.remove("hidden");
+            row.querySelector(".save-button").classList.add("hidden");
+            Array.from(cells).forEach((cell) => {
+                cell.contentEditable = false;
+            });
+        })
+        .catch((error) => {
+            alert(`Fehler beim Speichern: ${error.message}`);
+        });
 }
+
 
 function deleteEntry(id) {
   const token = getToken();
@@ -182,8 +203,7 @@ function deleteEntry(id) {
           throw new Error(`HTTP Fehler: ${response.status}`);
         }
         if (response.status === 204) {
-          // Überprüfen auf No Content
-          return null; // Kein Inhalt zum Verarbeiten
+          return null;
         }
         return response.json();
       })
@@ -195,6 +215,50 @@ function deleteEntry(id) {
         alert(`Fehler beim Löschen: ${error.message}`);
       });
   }
+}
+
+function createStatusDropdown(selectedValue) {
+  const options = ["Offen", "InArbeit", "abgeschlossen"]
+    .map(
+      (option) =>
+        `<option value="${option}" ${
+          option === selectedValue ? "selected" : ""
+        }>${option}</option>`
+    )
+    .join("");
+  return `<select class="status-dropdown">${options}</select>`;
+}
+
+function createPriorityDropdown(selectedValue) {
+  const options = ["Tief", "Standard", "Express"]
+    .map(
+      (option) =>
+        `<option value="${option}" ${
+          option === selectedValue ? "selected" : ""
+        }>${option}</option>`
+    )
+    .join("");
+  return `<select class="priority-dropdown">${options}</select>`;
+}
+
+function createServiceDropdown(selectedValue) {
+  const services = [
+    "Kleiner Service",
+    "Grosser Service",
+    "Rennski Service",
+    "Bindung montieren und einstellen",
+    "Fell zuschneiden",
+    "Heisswachsen",
+  ];
+  const options = services
+    .map(
+      (service) =>
+        `<option value="${service}" ${
+          service === selectedValue ? "selected" : ""
+        }>${service}</option>`
+    )
+    .join("");
+  return `<select class="service-dropdown">${options}</select>`;
 }
 
 function showSuccessModal() {
