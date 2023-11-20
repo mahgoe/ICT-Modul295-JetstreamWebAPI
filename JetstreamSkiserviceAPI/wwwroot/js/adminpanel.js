@@ -17,7 +17,7 @@ function fetchData() {
         .map((key) => {
           return `<th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">${key}</th>`;
         })
-        .join(""); // Stellen Sie sicher, dass hier ein leerer String als Trennzeichen verwendet wird
+        .join("");
 
       const tableRows = data
         .map((row) => {
@@ -34,7 +34,7 @@ function fetchData() {
                 return `<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" data-key="${key}">${value}</td>`;
               }
             })
-            .join(""); // Verwenden Sie auch hier einen leeren String als Trennzeichen
+            .join("");
 
           return `
           <tr id="row-${row.registrationId}">
@@ -47,7 +47,7 @@ function fetchData() {
           </tr>
         `;
         })
-        .join(""); // Und hier wieder ein leerer String
+        .join("");
 
       document.getElementById("output").innerHTML = `
         <table class="min-w-full leading-normal">
@@ -58,9 +58,7 @@ function fetchData() {
             ${tableRows}
           </tbody>
         </table>
-      `; // Stellen Sie sicher, dass dieser Block nur einmal vorhanden ist
-
-      console.log("tableRows", tableRows);
+      `;
     })
     .catch((error) => console.error("Fetch Fehler:", error));
 }
@@ -84,7 +82,6 @@ function fetchOrdersByPriority(priority) {
       console.error(`Fetch Fehler bei Priorität ${priority}:`, error)
     );
 }
-
 function updateTableWithOrders(data) {
   if (!data || !data.registration || data.registration.length === 0) {
     document.getElementById("output").innerHTML =
@@ -99,34 +96,43 @@ function updateTableWithOrders(data) {
       (key) =>
         `<th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">${key}</th>`
     )
+    .concat(
+      '<th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Aktionen</th>'
+    )
     .join("");
 
   const tableRows = registrations
-    .map((row) => {
-      const rowData = Object.entries(row)
-        .map(
-          ([key, value]) =>
-            `<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" contenteditable="false" data-key="${key}">${value}</td>`
-        )
+    .map((registration) => {
+      const formattedCreateDate = formatDateTime(registration.create_date);
+      const formattedPickupDate = formatDateTime(registration.pickup_date);
+
+      const rowData = Object.entries(registration)
+        .map(([key, value]) => {
+          if (key === "create_date") {
+            return `<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" data-key="${key}">${formattedCreateDate}</td>`;
+          } else if (key === "pickup_date") {
+            return `<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" data-key="${key}">${formattedPickupDate}</td>`;
+          } else {
+            return `<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" data-key="${key}">${value}</td>`;
+          }
+        })
         .join("");
 
-      return `
-        <tr id="row-${row.registrationId}">
-          ${rowData}
-          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-            <button onclick="editEntry(${row.registrationId})" class="edit-button border border-gray-300 shadow-sm rounded px-2 py-1 m-1">Ändern</button>
-            <button onclick="saveEntry(${row.registrationId})" class="save-button hidden border border-gray-300 shadow-sm rounded px-2 py-1 m-1">Speichern</button>
-            <button onclick="deleteEntry(${row.registrationId})" class="delete-button border border-gray-300 shadow-sm rounded px-2 py-1 m-1">Löschen</button>
-          </td>
-        </tr>
-      `;
+      const actionButtons = `
+      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+        <button onclick="editEntry(${registration.registrationId})" class="edit-button border border-gray-300 shadow-sm rounded px-2 py-1 m-1">Ändern</button>
+        <button onclick="saveEntry(${registration.registrationId})" class="save-button hidden border border-gray-300 shadow-sm rounded px-2 py-1 m-1">Speichern</button>
+        <button onclick="deleteEntry(${registration.registrationId})" class="delete-button border border-gray-300 shadow-sm rounded px-2 py-1 m-1">Löschen</button>
+      </td>`;
+
+      return `<tr id="row-${registration.registrationId}">${rowData}${actionButtons}</tr>`;
     })
     .join("");
 
   document.getElementById("output").innerHTML = `
     <table class="min-w-full leading-normal">
       <thead>
-        <tr>${tableHeaders}<th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Aktionen</th></tr>
+        <tr>${tableHeaders}</tr>
       </thead>
       <tbody>
         ${tableRows}
@@ -134,6 +140,7 @@ function updateTableWithOrders(data) {
     </table>
   `;
 }
+
 function editEntry(registrationId) {
   const row = document.getElementById(`row-${registrationId}`);
   const cells = row.querySelectorAll("td");
@@ -161,24 +168,61 @@ function getToken() {
   return localStorage.getItem("token");
 }
 
+function formatDate(dateString) {
+  const parts = dateString.split(".");
+
+  const newDate = new Date(parts[2], parts[1] - 1, parts[0]);
+
+  const now = new Date();
+
+  if (!isNaN(newDate)) {
+    return (
+      newDate.getFullYear() +
+      "-" +
+      String(newDate.getMonth() + 1).padStart(2, "0") +
+      "-" +
+      String(newDate.getDate()).padStart(2, "0") +
+      "T" +
+      String(now.getHours()).padStart(2, "0") +
+      ":" +
+      String(now.getMinutes()).padStart(2, "0") +
+      ":" +
+      String(now.getSeconds()).padStart(2, "0") +
+      "." +
+      String(now.getMilliseconds()).padStart(3, "0")
+    );
+  } else {
+    return "";
+  }
+}
+
 function saveEntry(id) {
   const token = getToken();
   const row = document.getElementById(`row-${id}`);
   const cells = row.querySelectorAll("td");
-  const data = {};
+  const data = { registrationId: id };
 
   cells.forEach((cell) => {
     const key = cell.getAttribute("data-key");
+    if (!key) return;
+
     let value;
 
     if (cell.querySelector("select")) {
       value = cell.querySelector("select").value;
-    } else {
+    } else if (cell.isContentEditable) {
       value = cell.textContent.trim();
+      if (key === "create_date" || key === "pickup_date") {
+        value = formatDate(value);
+      }
+    } else {
+      value = cell.innerText.trim();
     }
 
     data[key] = value;
   });
+
+  console.log("Daten, die an den Server gesendet werden:", data);
 
   fetch(`/Registrations/${id}`, {
     method: "PUT",
@@ -204,6 +248,7 @@ function saveEntry(id) {
       });
     })
     .catch((error) => {
+      console.log("Daten, die an den Server gesendet werden:", data);
       alert(`Fehler beim Speichern: ${error.message}`);
     });
 }
