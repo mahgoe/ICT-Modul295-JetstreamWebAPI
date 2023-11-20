@@ -1,5 +1,6 @@
 ﻿using JetstreamSkiserviceAPI.DTO;
 using JetstreamSkiserviceAPI.Models;
+using JetstreamSkiserviceAPI.Helpers;
 using Microsoft.EntityFrameworkCore;
 
 namespace JetstreamSkiserviceAPI.Services

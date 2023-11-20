@@ -1,4 +1,6 @@
-﻿namespace JetstreamSkiserviceAPI.DTO
+﻿using JetstreamSkiserviceAPI.Helpers;
+
+namespace JetstreamSkiserviceAPI.DTO
 {
     /// <summary>
     /// Data Transfer Object representing a registration
@@ -16,8 +18,8 @@
         public string Phone { get; set; }
 
         public DateTime Create_date { get; set; }
-
         public DateTime Pickup_date { get; set; }
+
         public string Status { get; set; }
 
 

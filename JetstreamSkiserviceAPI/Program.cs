@@ -61,7 +61,7 @@ namespace JetstreamSkiserviceAPI
             {
                 options.AddDefaultPolicy(policy =>
                 {
-                    policy.WithOrigins("http://localhost:5502", "http://127.0.0.1:5502") // Change this IP's
+                    policy.WithOrigins("http://localhost:5502", "http://127.0.0.1:5502", "https://localhost:7119", "https://127.0.0.1:7119") // Change this IP's
                           .AllowAnyHeader()
                           .AllowAnyMethod();
                 });

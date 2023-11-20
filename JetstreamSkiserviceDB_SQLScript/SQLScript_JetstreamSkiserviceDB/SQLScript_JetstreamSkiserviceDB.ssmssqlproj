@@ -3,32 +3,8 @@
   <Items>
     <LogicalFolder Name="Verbindungen" Type="2" Sorted="true">
       <Items>
-        <ConnectionNode Name="ADMIN:">
-          <Created>2023-11-17T11:03:37.7633877+01:00</Created>
-          <Type>SQL</Type>
-          <Server>ADMIN</Server>
-          <UserName />
-          <Authentication>SQL</Authentication>
-          <InitialDB />
-          <LoginTimeout>30</LoginTimeout>
-          <ExecutionTimeout>0</ExecutionTimeout>
-          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
-          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
-        </ConnectionNode>
-        <ConnectionNode Name="localhost:">
-          <Created>2023-11-16T15:57:23.1582921+01:00</Created>
-          <Type>SQL</Type>
-          <Server>localhost</Server>
-          <UserName />
-          <Authentication>SQL</Authentication>
-          <InitialDB />
-          <LoginTimeout>30</LoginTimeout>
-          <ExecutionTimeout>0</ExecutionTimeout>
-          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
-          <ApplicationName>Microsoft SQL Server Management Studio - Abfrage</ApplicationName>
-        </ConnectionNode>
         <ConnectionNode Name="localhost:MAHIR\gonen">
-          <Created>2023-11-20T10:50:13.3469481+01:00</Created>
+          <Created>2023-11-20T10:52:26.2875067+01:00</Created>
           <Type>SQL</Type>
           <Server>localhost</Server>
           <UserName />
@@ -37,21 +13,33 @@
           <LoginTimeout>30</LoginTimeout>
           <ExecutionTimeout>0</ExecutionTimeout>
           <ConnectionProtocol>NotSpecified</ConnectionProtocol>
-          <ApplicationName>Microsoft SQL Server Management Studio - Abfrage</ApplicationName>
+          <ApplicationName />
+        </ConnectionNode>
+        <ConnectionNode Name="localhost:Meier">
+          <Created>2023-11-20T10:52:38.2544634+01:00</Created>
+          <Type>SQL</Type>
+          <Server>localhost</Server>
+          <UserName>Meier</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB />
+          <LoginTimeout>30</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName />
         </ConnectionNode>
       </Items>
     </LogicalFolder>
     <LogicalFolder Name="Abfragen" Type="0" Sorted="true">
       <Items>
         <FileNode Name="SQLQuery_CREATE_USER.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:localhost:True</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>localhost</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
           <AssociatedConnUserName />
           <FullPath>SQLQuery_CREATE_USER.sql</FullPath>
         </FileNode>
         <FileNode Name="SQLQuery_DROP.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:localhost:True</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>localhost</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
           <AssociatedConnUserName />
           <FullPath>SQLQuery_DROP.sql</FullPath>
         </FileNode>

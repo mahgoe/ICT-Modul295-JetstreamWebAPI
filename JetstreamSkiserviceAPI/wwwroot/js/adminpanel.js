@@ -1,45 +1,66 @@
+function formatDateTime(dateTimeString) {
+  const date = new Date(dateTimeString);
+  return date.toLocaleDateString("de-CH", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+}
+
 function fetchData() {
   fetch("/Registrations")
     .then((response) => response.json())
     .then((data) => {
-      const outputDiv = document.getElementById("output");
+      console.log(data);
+
       const tableHeaders = Object.keys(data[0])
-        .map(
-          (key) =>
-            `<th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">${key}</th>`
-        )
-        .join("");
+        .map((key) => {
+          return `<th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">${key}</th>`;
+        })
+        .join(""); // Stellen Sie sicher, dass hier ein leerer String als Trennzeichen verwendet wird
+
       const tableRows = data
         .map((row) => {
-          const rowData = Object.entries(row)
-            .map(
-              ([key, value]) =>
-                `<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" contenteditable="false" data-key="${key}">${value}</td>`
-            )
-            .join("");
-          return `
-                    <tr id="row-${row.registrationId}">
-                      ${rowData}
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                      <button onclick="editEntry(${row.registrationId})" class="edit-button border border-gray-300 shadow-sm rounded px-2 py-1 m-1">Ändern</button>
-                      <button onclick="saveEntry(${row.registrationId})" class="save-button hidden border border-gray-300 shadow-sm rounded px-2 py-1 m-1">Speichern</button>
-                      <button onclick="deleteEntry(${row.registrationId})" class="delete-button border border-gray-300 shadow-sm rounded px-2 py-1 m-1">Löschen</button>
-                      </td>
-                    </tr>
-                  `;
-        })
-        .join("");
+          const formattedCreateDate = formatDateTime(row.create_date);
+          const formattedPickupDate = formatDateTime(row.pickup_date);
 
-      outputDiv.innerHTML = `
-              <table class="min-w-full leading-normal">
-                <thead>
-                  <tr>${tableHeaders}<th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Aktionen</th></tr>
-                </thead>
-                <tbody>
-                  ${tableRows}
-                </tbody>
-              </table>
-            `;
+          const rowData = Object.entries(row)
+            .map(([key, value]) => {
+              if (key === "create_date") {
+                return `<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" data-key="${key}">${formattedCreateDate}</td>`;
+              } else if (key === "pickup_date") {
+                return `<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" data-key="${key}">${formattedPickupDate}</td>`;
+              } else {
+                return `<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" data-key="${key}">${value}</td>`;
+              }
+            })
+            .join(""); // Verwenden Sie auch hier einen leeren String als Trennzeichen
+
+          return `
+          <tr id="row-${row.registrationId}">
+            ${rowData}
+            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+              <button onclick="editEntry(${row.registrationId})" class="edit-button border border-gray-300 shadow-sm rounded px-2 py-1 m-1">Ändern</button>
+              <button onclick="saveEntry(${row.registrationId})" class="save-button hidden border border-gray-300 shadow-sm rounded px-2 py-1 m-1">Speichern</button>
+              <button onclick="deleteEntry(${row.registrationId})" class="delete-button border border-gray-300 shadow-sm rounded px-2 py-1 m-1">Löschen</button>
+            </td>
+          </tr>
+        `;
+        })
+        .join(""); // Und hier wieder ein leerer String
+
+      document.getElementById("output").innerHTML = `
+        <table class="min-w-full leading-normal">
+          <thead>
+            <tr>${tableHeaders}<th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Aktionen</th></tr>
+          </thead>
+          <tbody>
+            ${tableRows}
+          </tbody>
+        </table>
+      `; // Stellen Sie sicher, dass dieser Block nur einmal vorhanden ist
+
+      console.log("tableRows", tableRows);
     })
     .catch((error) => console.error("Fetch Fehler:", error));
 }
@@ -114,80 +135,78 @@ function updateTableWithOrders(data) {
   `;
 }
 function editEntry(registrationId) {
-    const row = document.getElementById(`row-${registrationId}`);
-    const cells = row.querySelectorAll("td");
+  const row = document.getElementById(`row-${registrationId}`);
+  const cells = row.querySelectorAll("td");
 
-    cells.forEach((cell) => {
-        const key = cell.getAttribute("data-key");
-        let value = cell.textContent.trim();
+  cells.forEach((cell) => {
+    const key = cell.getAttribute("data-key");
+    let value = cell.textContent.trim();
 
-        if (key === "status") {
-            cell.innerHTML = createStatusDropdown(value);
-        } else if (key === "priority") {
-            cell.innerHTML = createPriorityDropdown(value);
-        } else if (key === "service") {
-            cell.innerHTML = createServiceDropdown(value);
-        } else if (key) {
-            cell.contentEditable = true;
-        }
-    });
+    if (key === "status") {
+      cell.innerHTML = createStatusDropdown(value);
+    } else if (key === "priority") {
+      cell.innerHTML = createPriorityDropdown(value);
+    } else if (key === "service") {
+      cell.innerHTML = createServiceDropdown(value);
+    } else if (key) {
+      cell.contentEditable = true;
+    }
+  });
 
-    row.querySelector(".edit-button").classList.add("hidden");
-    row.querySelector(".save-button").classList.remove("hidden");
+  row.querySelector(".edit-button").classList.add("hidden");
+  row.querySelector(".save-button").classList.remove("hidden");
 }
-
 
 function getToken() {
   return localStorage.getItem("token");
 }
 
 function saveEntry(id) {
-    const token = getToken();
-    const row = document.getElementById(`row-${id}`);
-    const cells = row.querySelectorAll("td");
-    const data = {};
+  const token = getToken();
+  const row = document.getElementById(`row-${id}`);
+  const cells = row.querySelectorAll("td");
+  const data = {};
 
-    cells.forEach((cell) => {
-        const key = cell.getAttribute("data-key");
-        let value;
+  cells.forEach((cell) => {
+    const key = cell.getAttribute("data-key");
+    let value;
 
-        if (cell.querySelector("select")) {
-            value = cell.querySelector("select").value;
-        } else {
-            value = cell.textContent.trim();
-        }
+    if (cell.querySelector("select")) {
+      value = cell.querySelector("select").value;
+    } else {
+      value = cell.textContent.trim();
+    }
 
-        data[key] = value;
-    });
+    data[key] = value;
+  });
 
-    fetch(`/Registrations/${id}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(data),
+  fetch(`/Registrations/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        alert(`Fehler: ${response.statusText}`);
+        throw new Error(`HTTP Fehler: ${response.status}`);
+      }
+      return response.json();
     })
-        .then((response) => {
-            if (!response.ok) {
-                alert(`Fehler: ${response.statusText}`);
-                throw new Error(`HTTP Fehler: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then((updatedEntry) => {
-            alert("Eintrag erfolgreich gespeichert.");
-            row.querySelector(".edit-button").classList.remove("hidden");
-            row.querySelector(".save-button").classList.add("hidden");
-            Array.from(cells).forEach((cell) => {
-                cell.contentEditable = false;
-            });
-        })
-        .catch((error) => {
-            alert(`Fehler beim Speichern: ${error.message}`);
-        });
+    .then((updatedEntry) => {
+      alert("Eintrag erfolgreich gespeichert.");
+      row.querySelector(".edit-button").classList.remove("hidden");
+      row.querySelector(".save-button").classList.add("hidden");
+      Array.from(cells).forEach((cell) => {
+        cell.contentEditable = false;
+      });
+    })
+    .catch((error) => {
+      alert(`Fehler beim Speichern: ${error.message}`);
+    });
 }
-
 
 function deleteEntry(id) {
   const token = getToken();
