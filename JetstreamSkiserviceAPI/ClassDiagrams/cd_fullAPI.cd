@@ -9,6 +9,17 @@
   </Class>
   <Class Name="JetstreamSkiserviceAPI.Controllers.StatusController">
     <Position X="0.5" Y="3.5" Width="5.25" />
+    <InheritanceLine Type="Microsoft.AspNetCore.Mvc.ControllerBase" FixedFromPoint="true">
+      <Path>
+        <Point X="17.312" Y="1.562" />
+        <Point X="17.312" Y="3.346" />
+        <Point X="15.333" Y="3.346" Type="JumpStart" />
+        <Point X="15.167" Y="3.346" Type="JumpEnd" />
+        <Point X="6.873" Y="3.346" />
+        <Point X="6.873" Y="4.631" />
+        <Point X="5.75" Y="4.631" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAIAAAAAAAAgAAAAAAAAE=</HashCode>
       <FileName>Controllers\StatusController.cs</FileName>
@@ -22,7 +33,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="JetstreamSkiserviceAPI.DTO.StatusDto">
-    <Position X="23.25" Y="7.75" Width="3.25" />
+    <Position X="23.5" Y="7.75" Width="3.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAIAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAEAAA=</HashCode>
       <FileName>DTO\StatusDto.cs</FileName>
@@ -88,7 +99,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="JetstreamSkiserviceAPI.Program">
-    <Position X="14.25" Y="1" Width="2" />
+    <Position X="14.25" Y="1.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Program.cs</FileName>
@@ -102,7 +113,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="JetstreamSkiserviceAPI.Controllers.EmployeesController">
-    <Position X="7.25" Y="0.5" Width="5.75" />
+    <Position X="7" Y="0.5" Width="5.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAgAAAAAAAAAAAAAAAKAAAAAAAAAQQAAAAAAA=</HashCode>
       <FileName>Controllers\EmployeeController.cs</FileName>
@@ -110,27 +121,37 @@
   </Class>
   <Class Name="JetstreamSkiserviceAPI.Controllers.PriorityController">
     <Position X="7.25" Y="3.5" Width="5.5" />
+    <InheritanceLine Type="Microsoft.AspNetCore.Mvc.ControllerBase" FixedFromPoint="true">
+      <Path>
+        <Point X="17.438" Y="1.562" />
+        <Point X="17.438" Y="3.346" />
+        <Point X="15.333" Y="3.346" Type="JumpStart" />
+        <Point X="15.167" Y="3.346" Type="JumpEnd" />
+        <Point X="10" Y="3.346" />
+        <Point X="10" Y="3.5" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAgAAABAAAAA=</HashCode>
       <FileName>Controllers\PriorityController.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="JetstreamSkiserviceAPI.DTO.AuthDto">
-    <Position X="26.75" Y="7.75" Width="2.25" />
+    <Position X="27.25" Y="7.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
       <FileName>DTO\AuthDto.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="JetstreamSkiserviceAPI.DTO.EmployeeDto">
-    <Position X="26.75" Y="9.5" Width="2.25" />
+    <Position X="27.25" Y="9.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAACAAAAAAECAAA=</HashCode>
       <FileName>DTO\EmployeeDto.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="JetstreamSkiserviceAPI.DTO.PriorityDto">
-    <Position X="23.25" Y="9.5" Width="3.25" />
+    <Position X="23.25" Y="9.75" Width="3.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAABAEAAAAAAAAAAAAAAAEAAA=</HashCode>
       <FileName>DTO\PriorityDto.cs</FileName>
@@ -143,6 +164,14 @@
       <FileName>Services\PriorityService.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="System.Object" Collapsed="true">
+    <Position X="22.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Microsoft.AspNetCore.Mvc.ControllerBase" Collapsed="true">
+    <Position X="16.5" Y="1" Width="1.5" />
+    <TypeIdentifier />
   </Class>
   <Interface Name="JetstreamSkiserviceAPI.Services.IRegistrationService">
     <Position X="0.5" Y="6.5" Width="4.75" />
@@ -166,7 +195,7 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="JetstreamSkiserviceAPI.Services.IPriorityService">
-    <Position X="16" Y="6.75" Width="3.75" />
+    <Position X="14" Y="6.75" Width="3.75" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
       <FileName>Services\IPriorityService.cs</FileName>
