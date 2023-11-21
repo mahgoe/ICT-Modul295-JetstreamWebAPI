@@ -18,6 +18,8 @@ The Jetstream Ski Service API is a robust backend service designed to manage the
 6. Open Project Solution in Visual Studio or similar
 7. Open Packet Manager Terminal and Use: `Add-Migration InitialCreate` and after a successfull migration use `Update-Database`
 9. Update the database connection string in the application settings.
+10. With the SQL Query `SQLQuery_SELECT` you can check every data from the initial create.
+11. Start the service and Swagger will open in your Browser. Access the website with localhost:xxxx/index.html (since the frontend is in wwwroot folder you can take the ip:port from the backend)
 
 ### All NuGet Packages used
 
