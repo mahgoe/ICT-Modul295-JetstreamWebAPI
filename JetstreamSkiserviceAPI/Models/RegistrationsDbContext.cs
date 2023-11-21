@@ -63,7 +63,16 @@ namespace JetstreamSkiserviceAPI.Models
                 );
 
             modelBuilder.Entity<Employee>().HasData(
-                new Employee { EmployeeId = 1, Username = "admin", Password = "password", Attempts = 0 }
+                new Employee { EmployeeId = 1, Username = "admin", Password = "password", Attempts = 0 },
+                new Employee { EmployeeId = 2, Username = "employee1", Password = "password", Attempts = 0 },
+                new Employee { EmployeeId = 3, Username = "employee2", Password = "password", Attempts = 0 },
+                new Employee { EmployeeId = 4, Username = "employee4", Password = "password", Attempts = 0 },
+                new Employee { EmployeeId = 5, Username = "employee5", Password = "password", Attempts = 0 },
+                new Employee { EmployeeId = 6, Username = "employee6", Password = "password", Attempts = 0 },
+                new Employee { EmployeeId = 7, Username = "employee7", Password = "password", Attempts = 0 },
+                new Employee { EmployeeId = 8, Username = "employee8", Password = "password", Attempts = 0 },
+                new Employee { EmployeeId = 9, Username = "employee9", Password = "password", Attempts = 0 },
+                new Employee { EmployeeId = 10, Username = "employee10", Password = "password", Attempts = 0 }
                 );
 
             base.OnModelCreating(modelBuilder);
