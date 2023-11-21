@@ -43,12 +43,16 @@ namespace JetstreamSkiserviceAPI.Controllers
         {
             try
             {
-                return Ok(await _registrationService.GetRegistrations());
+                var registrations = await _registrationService.GetRegistrations();
+                var nonCancelledRegistrations = registrations
+                    .Where(r => r.Status?.ToLower() != "storniert");
+
+                return Ok(nonCancelledRegistrations);
             }
             catch (Exception ex)
             {
-                _logger.LogError($"An Error occured, {ex.Message}");
-                return StatusCode(StatusCodes.Status500InternalServerError, "An error occured");
+                _logger.LogError($"An Error occurred, {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred");
             }
         }
 
@@ -60,21 +64,22 @@ namespace JetstreamSkiserviceAPI.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<IEnumerable<RegistrationDto>>> GetRegistration(int id)
+        public async Task<ActionResult<RegistrationDto>> GetRegistration(int id)
         {
-            var registrationDto = await _registrationService.GetRegistrationById(id);
-
             try
             {
-                if (registrationDto == null)
+                var registrationDto = await _registrationService.GetRegistrationById(id);
+
+                if (registrationDto == null || registrationDto.Status?.ToLower() == "storniert")
                 {
                     return NotFound();
                 }
+
                 return Ok(registrationDto);
             }
             catch (Exception ex)
             {
-                _logger.LogError($"An Error occured, {ex.Message}");
+                _logger.LogError($"An Error occurred, {ex.Message}");
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred");
             }
         }

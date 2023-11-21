@@ -39,7 +39,11 @@ namespace JetstreamSkiserviceAPI.Controllers
         {
             try
             {
-                return Ok(await _priorityService.GetAll());
+                var priorities = await _priorityService.GetAll();
+                var nonCancelledPriorities = priorities
+                    .Where(p => p.Registration.All(r => r.Status.ToLower() != "storniert"));
+
+                return Ok(nonCancelledPriorities);
             }
             catch (Exception ex)
             {
@@ -47,6 +51,7 @@ namespace JetstreamSkiserviceAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred");
             }
         }
+
 
         /// <summary>
         /// Handles GET requests to retrieve a specific priority entity by its name
@@ -62,12 +67,20 @@ namespace JetstreamSkiserviceAPI.Controllers
         {
             try
             {
-                var priorityDto = await _priorityService.GetByPriority(priorityName);
-                if(priorityDto == null)
+                var priority = await _priorityService.GetByPriority(priorityName);
+                if (priority == null)
                 {
                     return NotFound();
                 }
-                return Ok(priorityDto);
+
+                var nonCancelledRegistrations = priority.Registration
+                    .Where(r => r.Status.ToLower() != "storniert");
+
+                return Ok(new PriorityDto
+                {
+                    PriorityName = priority.PriorityName,
+                    Registration = nonCancelledRegistrations.ToList()
+                });
             }
             catch (Exception ex)
             {
