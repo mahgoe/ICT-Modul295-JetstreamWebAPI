@@ -44,9 +44,9 @@
           <FullPath>SQLQuery_DROP.sql</FullPath>
         </FileNode>
         <FileNode Name="SQLQuery_SELECT.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:localhost:True</AssociatedConnectionMoniker>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:localhost:False:Meier</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>localhost</AssociatedConnSrvName>
-          <AssociatedConnUserName />
+          <AssociatedConnUserName>Meier</AssociatedConnUserName>
           <FullPath>SQLQuery_SELECT.sql</FullPath>
         </FileNode>
       </Items>
