@@ -45,4 +45,4 @@ Refer to the Postman collection `JetstreamSkiserviceAPI.postman_collection.json`
 ## Database Setup
 The SQL scripts provided in the `SQLScript_JetstreamSkiserviceDB` directory can be used to select all data after you used Add-Migration and Update-Database in your Packet Manager. The nessecary data will be inserted in the migration provided by `RegistrationDbContext.cs`
 
-tbt
+Disclaimer: I took an CDN-js File in my project to change the datepicker in my form.
