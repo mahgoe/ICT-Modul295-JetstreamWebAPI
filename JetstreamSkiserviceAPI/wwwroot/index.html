@@ -251,87 +251,35 @@
           </ul>
 
           <!-- Date picker -->
-          <div class="hidden">
-            <div class="days">
-              <div
-                class="grid flex-1 block grid-cols-7 mb-1 text-sm font-semibold leading-9 text-center text-gray-900 border-0 rounded-lg cursor-default days-of-week dow"
-              ></div>
-              <div
-                class="grid flex-1 block w-64 h-6 grid-cols-7 text-sm font-medium font-semibold leading-6 leading-9 text-center text-gray-500 text-gray-900 border-0 rounded-lg cursor-default datepicker-grid dark:text-gray-400"
-              ></div>
-            </div>
-            <div class="calendar-weeks">
-              <div class="flex days-of-week">
-                <span
-                  class="h-6 text-sm font-medium leading-6 text-gray-500 dow dark:text-gray-400"
-                ></span>
-              </div>
-              <div
-                class="flex-1 block text-sm font-semibold leading-9 text-center text-gray-900 border-0 rounded-lg cursor-default weeks week"
-              ></div>
-            </div>
-          </div>
+          <!-- Service Beginn Datum -->
           <div class="mt-6 mb-4">
             <label
-              for="date"
+              for="startDate"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >Service Beginn Datum:</label
             >
-
             <div class="relative">
-              <div
-                class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none"
-              >
-                <svg
-                  class="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"
-                  />
-                </svg>
-              </div>
               <input
                 id="startDate"
-                datepicker
-                type="text"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Select date"
-                readonly
+                type="date"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 cursor-pointer dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                onkeydown="return false"
               />
             </div>
           </div>
 
+          <!-- Abholdatum -->
           <div class="mt-6 mb-4">
             <label
-              for="date"
+              for="endDate"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >Abholdatum:</label
             >
-
             <div class="relative">
-              <div
-                class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none"
-              >
-                <svg
-                  class="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"
-                  />
-                </svg>
-              </div>
               <input
                 id="endDate"
-                type="text"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                type="date"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 readonly
               />
             </div>
@@ -461,6 +409,5 @@
     <!-- TEMPLATE_END: templates\footer.html -->
     <script src="./js/main.js"></script>
     <script src="./js/form.js"></script>
-    <script src="./js/calendar.js"></script>
   </body>
 </html>

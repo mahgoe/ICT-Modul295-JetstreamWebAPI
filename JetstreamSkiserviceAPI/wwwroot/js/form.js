@@ -119,41 +119,6 @@ function validatePhoneNumber(field) {
   }
   return true;
 }
-
-function formatDate(dateString) {
-  // Splits the date into day, month, and year
-  const parts = dateString.split("/");
-
-  // Creates a new Date object considering the format "DD/MM/YYYY"
-  const newDate = new Date(parts[2], parts[1] - 1, parts[0]);
-
-  // Creates a new Date object for the current time
-  const now = new Date();
-
-  // Checks if the date is valid
-  if (!isNaN(newDate)) {
-    // Returns the date and the current time in ISO-8601 format without timezone
-    return (
-      newDate.getFullYear() +
-      "-" +
-      String(newDate.getMonth() + 1).padStart(2, "0") +
-      "-" +
-      String(newDate.getDate()).padStart(2, "0") +
-      "T" +
-      String(now.getHours()).padStart(2, "0") +
-      ":" +
-      String(now.getMinutes()).padStart(2, "0") +
-      ":" +
-      String(now.getSeconds()).padStart(2, "0") +
-      "." +
-      String(now.getMilliseconds()).padStart(3, "0")
-    );
-  } else {
-    // Returns an empty string or throws an error if the date is invalid
-    return "";
-  }
-}
-
 function postData(firstName, lastName, email) {
   fetch("/Registrations", {
     method: "POST",
@@ -168,8 +133,8 @@ function postData(firstName, lastName, email) {
       priority: document.querySelector('input[name="list-radio"]:checked')
         .value,
       service: document.getElementById("serviceDropdown").value,
-      create_date: formatDate(document.getElementById("startDate").value),
-      pickup_date: formatDate(document.getElementById("endDate").value),
+      create_date: document.getElementById("startDate").value, // Datum direkt übernehmen
+      pickup_date: document.getElementById("endDate").value, // Datum direkt übernehmen
       status: "Offen",
       service: document.getElementById("serviceDropdown").value,
       price: document.getElementById("total").value,
@@ -203,7 +168,6 @@ if (dropdownValue) {
 }
 
 function setEstimatedPickupDate(priority, startDate) {
-  let start = new Date(startDate);
   let daysToAdd = 0;
 
   if (priority === "Tief") {
@@ -214,14 +178,12 @@ function setEstimatedPickupDate(priority, startDate) {
     daysToAdd = 5;
   }
 
-  const newDate = new Date(start);
-  newDate.setDate(start.getDate() + daysToAdd);
+  const newDate = new Date(startDate);
+  newDate.setDate(newDate.getDate() + daysToAdd);
 
-  const formattedDate = `${String(newDate.getDate()).padStart(2, "0")}/${String(
+  document.getElementById("endDate").value = `${newDate.getFullYear()}-${String(
     newDate.getMonth() + 1
-  ).padStart(2, "0")}/${newDate.getFullYear()}`;
-
-  document.getElementById("endDate").value = formattedDate;
+  ).padStart(2, "0")}-${String(newDate.getDate()).padStart(2, "0")}`;
 }
 
 function calculateTotal() {
@@ -263,12 +225,17 @@ window.onload = function () {
 
   const startDateInput = document.getElementById("startDate");
   const today = new Date();
-  const formattedToday = `${String(today.getDate()).padStart(2, "0")}/${String(
+  const formattedToday = `${today.getFullYear()}-${String(
     today.getMonth() + 1
-  ).padStart(2, "0")}/${today.getFullYear()}`;
+  ).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
 
   startDateInput.value = formattedToday;
-  setEstimatedPickupDate("Tief", today);
+  startDateInput.min = formattedToday; // Setzt das minimale Datum auf das heutige Datum
+
+  const priority = document.querySelector(
+    'input[name="list-radio"]:checked'
+  ).value;
+  setEstimatedPickupDate(priority, today);
 
   document.querySelectorAll('input[name="list-radio"]').forEach((radio) => {
     radio.addEventListener("change", function () {
@@ -311,10 +278,7 @@ setInterval(() => {
   if (currentStartDate !== lastKnownStartDate) {
     lastKnownStartDate = currentStartDate;
 
-    const startDateValue = currentStartDate.split("/");
-    const startDate = new Date(
-      `${startDateValue[2]}-${startDateValue[1]}-${startDateValue[0]}`
-    );
+    const startDate = new Date(currentStartDate);
     const priority = document.querySelector(
       'input[name="list-radio"]:checked'
     ).value;
