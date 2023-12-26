@@ -101,6 +101,26 @@ namespace JetstreamSkiserviceAPI.Services
         /// <exception cref="Exception">Thrown when an unexpected error occurs during the process</exception>
         public async Task<RegistrationDto> AddRegistration(RegistrationDto registrationDto)
         {
+            var statusName = registrationDto.Status;
+            if (string.IsNullOrWhiteSpace(statusName) || (statusName != "Offen" && statusName != "InArbeit" && statusName != "abgeschlossen"))
+            {
+                statusName = "Offen";
+            }
+
+            var priorityName = registrationDto.Priority;
+            if (string.IsNullOrWhiteSpace(priorityName) || (priorityName != "Standard" && priorityName != "Express" && priorityName != "Tief"))
+            {
+                priorityName = "Tief";
+            }
+
+            var serviceName = registrationDto.Service;
+            if (string.IsNullOrWhiteSpace(serviceName) || (serviceName != "Kleiner Service" && serviceName != "Grosser Service" && serviceName != "Rennski Service" && serviceName != "Bindungen montieren und einstellen" && serviceName != "Fell zuschneiden" && serviceName != "Heisswachsen" ))
+            {
+                serviceName = "Kleiner Service";
+            }
+            var service = _context.Services.FirstOrDefault(e => e.ServiceName == serviceName);
+
+
             var registration = new Registration
             {
                 RegistrationId = registrationDto.RegistrationId,
@@ -110,13 +130,13 @@ namespace JetstreamSkiserviceAPI.Services
                 Phone = registrationDto.Phone,
                 Create_date = registrationDto.Create_date,
                 Pickup_date = registrationDto.Pickup_date,
-                Status = _context.Status.FirstOrDefault(e => e.StatusName == registrationDto.Status),
-                Priority = _context.Priority.FirstOrDefault(e => e.PriorityName == registrationDto.Priority),
-                Service = _context.Services.FirstOrDefault(e => e.ServiceName == registrationDto.Service),
+                Status = _context.Status.FirstOrDefault(e => e.StatusName == statusName),
+                Priority = _context.Priority.FirstOrDefault(e => e.PriorityName == priorityName),
+                Service = _context.Services.FirstOrDefault(e => e.ServiceName == serviceName),
                 Price = registrationDto.Price,
                 Comment = registrationDto.Comment
             };
-
+            
             _context.Registrations.Add(registration);
             await _context.SaveChangesAsync();
             registrationDto.RegistrationId = registration.RegistrationId;
