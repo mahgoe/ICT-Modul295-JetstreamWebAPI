@@ -66,13 +66,27 @@ namespace JetstreamSkiserviceAPI.Models
                 new Employee { EmployeeId = 1, Username = "admin", Password = "password", Attempts = 0 },
                 new Employee { EmployeeId = 2, Username = "employee1", Password = "password", Attempts = 0 },
                 new Employee { EmployeeId = 3, Username = "employee2", Password = "password", Attempts = 0 },
-                new Employee { EmployeeId = 4, Username = "employee4", Password = "password", Attempts = 0 },
-                new Employee { EmployeeId = 5, Username = "employee5", Password = "password", Attempts = 0 },
-                new Employee { EmployeeId = 6, Username = "employee6", Password = "password", Attempts = 0 },
-                new Employee { EmployeeId = 7, Username = "employee7", Password = "password", Attempts = 0 },
-                new Employee { EmployeeId = 8, Username = "employee8", Password = "password", Attempts = 0 },
-                new Employee { EmployeeId = 9, Username = "employee9", Password = "password", Attempts = 0 },
-                new Employee { EmployeeId = 10, Username = "employee10", Password = "password", Attempts = 0 }
+                new Employee { EmployeeId = 4, Username = "employee3", Password = "password", Attempts = 0 },
+                new Employee { EmployeeId = 5, Username = "employee4", Password = "password", Attempts = 0 },
+                new Employee { EmployeeId = 6, Username = "employee5", Password = "password", Attempts = 0 },
+                new Employee { EmployeeId = 7, Username = "employee6", Password = "password", Attempts = 0 },
+                new Employee { EmployeeId = 8, Username = "employee7", Password = "password", Attempts = 0 },
+                new Employee { EmployeeId = 9, Username = "employee8", Password = "password", Attempts = 0 },
+                new Employee { EmployeeId = 10, Username = "employee9", Password = "password", Attempts = 0 },
+                new Employee { EmployeeId = 11, Username = "employee10", Password = "password", Attempts = 0 }
+                );
+
+            modelBuilder.Entity<Registration>().HasData(
+                new Registration { RegistrationId = 1, FirstName = "Max", LastName = "Muster", Email = "max@mustermann.com", Phone = "0791234567", Create_date = DateTime.Now, Pickup_date = DateTime.Now, ServiceId = 1, PriorityId = 1, StatusId = 1, Price = "50", Comment = "Testkommentar" },
+                new Registration { RegistrationId = 2, FirstName = "Tim", LastName = "Muster", Email = "Tim@mustermann.com", Phone = "0791234567", Create_date = DateTime.Now, Pickup_date = DateTime.Now, ServiceId = 2, PriorityId = 2, StatusId = 2, Price = "60", Comment = "Testkommentar" },
+                new Registration { RegistrationId = 3, FirstName = "Max", LastName = "Muster", Email = "max@mustermann.com", Phone = "0791234567", Create_date = DateTime.Now, Pickup_date = DateTime.Now, ServiceId = 3, PriorityId = 3, StatusId = 3, Price = "70", Comment = "Testkommentar" },
+                new Registration { RegistrationId = 4, FirstName = "Max", LastName = "Muster", Email = "max@mustermann.com", Phone = "0791234567", Create_date = DateTime.Now, Pickup_date = DateTime.Now, ServiceId = 4, PriorityId = 1, StatusId = 4, Price = "80", Comment = "Testkommentar" },
+                new Registration { RegistrationId = 5, FirstName = "Max", LastName = "Muster", Email = "max@mustermann.com", Phone = "0791234567", Create_date = DateTime.Now, Pickup_date = DateTime.Now, ServiceId = 5, PriorityId = 2, StatusId = 1, Price = "90", Comment = "Testkommentar" },
+                new Registration { RegistrationId = 6, FirstName = "Max", LastName = "Muster", Email = "max@mustermann.com", Phone = "0791234567", Create_date = DateTime.Now, Pickup_date = DateTime.Now, ServiceId = 6, PriorityId = 3, StatusId = 2, Price = "100", Comment = "Testkommentar" },
+                new Registration { RegistrationId = 7, FirstName = "Max", LastName = "Muster", Email = "max@mustermann.com", Phone = "0791234567", Create_date = DateTime.Now, Pickup_date = DateTime.Now, ServiceId = 1, PriorityId = 1, StatusId = 3, Price = "110", Comment = "Testkommentar" },
+                new Registration { RegistrationId = 8, FirstName = "Max", LastName = "Muster", Email = "max@mustermann.com", Phone = "0791234567", Create_date = DateTime.Now, Pickup_date = DateTime.Now, ServiceId = 2, PriorityId = 2, StatusId = 1, Price = "120", Comment = "Testkommentar" },
+                new Registration { RegistrationId = 9, FirstName = "Max", LastName = "Muster", Email = "max@mustermann.com", Phone = "0791234567", Create_date = DateTime.Now, Pickup_date = DateTime.Now, ServiceId = 3, PriorityId = 3, StatusId = 2, Price = "130", Comment = "Testkommentar" },
+                new Registration { RegistrationId = 10, FirstName = "Max", LastName = "Muster", Email = "max@mustermann.com", Phone = "0791234567", Create_date = DateTime.Now, Pickup_date = DateTime.Now, ServiceId = 4, PriorityId = 1, StatusId = 3, Price = "140", Comment = "Testkommentar" }
                 );
 
             base.OnModelCreating(modelBuilder);

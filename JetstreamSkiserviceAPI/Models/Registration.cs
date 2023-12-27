@@ -56,15 +56,21 @@ namespace JetstreamSkiserviceAPI.Models
         /// </summary>
         public DateTime Pickup_date { get; set; }
 
+        public int StatusId { get; set; }
+
         /// <summary>
         /// Current status of the registration (Offen, InArbeit, abgeschlossen)
         /// </summary>
         public Status? Status { get; set; }
 
+        public int PriorityId { get; set; }
+
         /// <summary>
         /// Priority level of the service request (Tief, Standard, Express)
         /// </summary>
         public Priority? Priority { get; set; }
+
+        public int ServiceId { get; set; }
 
         /// <summary>
         /// Type of service requested from the client
