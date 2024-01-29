@@ -1,4 +1,5 @@
-﻿using JetstreamSkiserviceAPI.DTO;
+﻿using AutoMapper;
+using JetstreamSkiserviceAPI.DTO;
 using JetstreamSkiserviceAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,14 +11,16 @@ namespace JetstreamSkiserviceAPI.Services
     public class RegistrationService : IRegistrationService
     {
         private readonly RegistrationsContext _context;
+        private readonly IMapper _mapper;
 
         /// <summary>
         /// Initializes a new instance of the RegistrationService class with the specified database context
         /// </summary>
         /// <param name="context">The database context to be used for data operations</param>
-        public RegistrationService(RegistrationsContext context)
+        public RegistrationService(RegistrationsContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -25,28 +28,16 @@ namespace JetstreamSkiserviceAPI.Services
         /// </summary>
         public async Task<IEnumerable<RegistrationDto>> GetRegistrations()
         {
-            // Filtert alle Registrierungen heraus, deren Status nicht "storniert" ist
             var registrations = await _context.Registrations
+                .Include(r => r.Status)
+                .Include(r => r.Priority)
+                .Include(r => r.Service)
                 .Where(r => r.Status.StatusName != "storniert")
-                .Select(r => new RegistrationDto
-                {
-                    RegistrationId = r.RegistrationId,
-                    FirstName = r.FirstName,
-                    LastName = r.LastName,
-                    Email = r.Email,
-                    Phone = r.Phone,
-                    Create_date = r.Create_date,
-                    Pickup_date = r.Pickup_date,
-                    Status = r.Status.StatusName,
-                    Priority = r.Priority.PriorityName,
-                    Service = r.Service.ServiceName,
-                    Price = r.Price,
-                    Comment = r.Comment
-                })
                 .ToListAsync();
 
-            return registrations;
+            return _mapper.Map<IEnumerable<RegistrationDto>>(registrations);
         }
+
 
         /// <summary>
         /// Retrieves a single registration by its ID and returns it as a RegistrationDto object.
@@ -68,29 +59,7 @@ namespace JetstreamSkiserviceAPI.Services
                 throw new KeyNotFoundException("Referenced ID or Item not found or doesn't exist");
             }
 
-            try
-            {
-                return new RegistrationDto
-                {
-                    RegistrationId = registration.RegistrationId,
-                    FirstName = registration.FirstName,
-                    LastName = registration.LastName,
-                    Email = registration.Email,
-                    Phone = registration.Phone,
-                    Create_date = registration.Create_date,
-                    Pickup_date = registration.Pickup_date,
-                    Status = registration.Status?.StatusName,
-                    Priority = registration.Priority?.PriorityName,
-                    Service = registration.Service?.ServiceName,
-                    Price = registration.Price,
-                    Comment = registration.Comment
-                };
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message, ex);
-            }
-
+            return _mapper.Map<RegistrationDto>(registration);
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using JetstreamSkiserviceAPI.DTO;
+﻿using AutoMapper;
+using JetstreamSkiserviceAPI.DTO;
 using JetstreamSkiserviceAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,14 +11,16 @@ namespace JetstreamSkiserviceAPI.Services
     public class PriorityService : IPriorityService
     {
         private readonly RegistrationsContext _context;
+        private readonly IMapper _mapper;
 
         /// <summary>
         /// Constructor for the PriorityService class
         /// </summary>
         /// <param name="context">The database context used for data operations</param>
-        public PriorityService(RegistrationsContext context)
+        public PriorityService(RegistrationsContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -29,29 +32,15 @@ namespace JetstreamSkiserviceAPI.Services
             var priorities = await _context.Priority
                 .Include(p => p.Registrations)
                     .ThenInclude(r => r.Status)
-                 .Include(p => p.Registrations)
+                .Include(p => p.Registrations)
                     .ThenInclude(r => r.Service)
                 .ToListAsync();
 
-            return priorities.Select(p => new PriorityDto
+            return priorities.Select(s => new PriorityDto
             {
-                PriorityId = p.PriorityId,
-                PriorityName = p.PriorityName,
-                Registration = p.Registrations.Select(r => new RegistrationDto
-                {
-                    RegistrationId = r.RegistrationId,
-                    FirstName = r.FirstName,
-                    LastName = r.LastName,
-                    Email = r.Email,
-                    Phone = r.Phone,
-                    Create_date = r.Create_date,
-                    Pickup_date = r.Pickup_date,
-                    Priority = p.PriorityName,
-                    Service = r.Service.ServiceName,
-                    Status = r.Status.StatusName,
-                    Price = r.Price,
-                    Comment = r.Comment
-                }).ToList()
+                PriorityId = s.PriorityId,
+                PriorityName = s.PriorityName,
+                Registration = _mapper.Map<List<RegistrationDto>>(s.Registrations)
             }).ToList();
         }
 
@@ -62,8 +51,38 @@ namespace JetstreamSkiserviceAPI.Services
         /// <returns>A collection of registrations with the associated priority</returns>
         public async Task<PriorityDto> GetByPriority(string priorityName)
         {
-            var allPriorities = await GetAll();
-            return allPriorities.FirstOrDefault(p => p.PriorityName == priorityName);
+            var priority = await _context.Priority
+                .Include(p => p.Registrations)
+                    .ThenInclude(r => r.Status)
+                .Include(p => p.Registrations) 
+                    .ThenInclude(r => r.Service)
+            .FirstOrDefaultAsync(p => p.PriorityName == priorityName);
+
+            if (priority != null)
+            {
+                var priorityDto = new PriorityDto
+                {
+                    PriorityId = priority.PriorityId,
+                    PriorityName = priority.PriorityName,
+                    Registration = priority.Registrations.Select(r => new RegistrationDto
+                    {
+                        RegistrationId = r.RegistrationId,
+                        FirstName = r.FirstName,
+                        LastName = r.LastName,
+                        Email = r.Email,
+                        Phone = r.Phone,
+                        Create_date = r.Create_date,
+                        Pickup_date = r.Pickup_date,
+                        Priority = r.Priority.PriorityName,
+                        Service = r.Service.ServiceName,
+                        Status = r.Status.StatusName,
+                        Price = r.Price,
+                        Comment = r.Comment
+                    }).ToList()
+                };
+                return priorityDto;
+            }
+            return null;
         }
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Text;
+using JetstreamSkiserviceAPI.Mappers;
 
 namespace JetstreamSkiserviceAPI
 {
@@ -34,6 +35,9 @@ namespace JetstreamSkiserviceAPI
             // Add DbContext class
             builder.Services.AddDbContext<RegistrationsContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("JetstreamSkiserviceDB")));
+
+            // Register AutoMapper
+            builder.Services.AddAutoMapper(typeof(ApplicationProfile));
 
             // Add Scopes from the implemented interfaces
             builder.Services.AddScoped<IRegistrationService, RegistrationService>();

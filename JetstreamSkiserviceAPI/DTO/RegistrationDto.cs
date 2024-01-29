@@ -21,12 +21,9 @@
 
         public string Status { get; set; }
 
-
         public string Priority { get; set; }
 
-
         public string Service { get; set; }
-
 
         public string Price { get; set; }
 

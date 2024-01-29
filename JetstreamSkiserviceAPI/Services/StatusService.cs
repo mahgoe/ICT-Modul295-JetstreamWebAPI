@@ -1,4 +1,5 @@
-﻿using JetstreamSkiserviceAPI.DTO;
+﻿using AutoMapper;
+using JetstreamSkiserviceAPI.DTO;
 using JetstreamSkiserviceAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,14 +11,16 @@ namespace JetstreamSkiserviceAPI.Services
     public class StatusService : IStatusService
     {
         private readonly RegistrationsContext _context;
+        private readonly IMapper _mapper;
 
         /// <summary>
         /// Constructor for the StatusService class
         /// </summary>
         /// <param name="context">The database context used for data operations</param>
-        public StatusService(RegistrationsContext context)
+        public StatusService(RegistrationsContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -37,23 +40,10 @@ namespace JetstreamSkiserviceAPI.Services
             {
                 StatusId = s.StatusId,
                 StatusName = s.StatusName,
-                Registration = s.Registrations.Select(r => new RegistrationDto
-                {
-                    RegistrationId = r.RegistrationId,
-                    FirstName = r.FirstName,
-                    LastName = r.LastName,
-                    Email = r.Email,
-                    Phone = r.Phone,
-                    Create_date = r.Create_date,
-                    Pickup_date = r.Pickup_date,
-                    Priority = r.Priority.PriorityName,
-                    Service = r.Service.ServiceName,
-                    Status = s.StatusName,
-                    Price = r.Price,
-                    Comment = r.Comment
-                }).ToList()
+                Registration = _mapper.Map<List<RegistrationDto>>(s.Registrations)
             }).ToList();
         }
+
 
         /// <summary>
         /// Retrieves a single status by its name along with its associated registrations
@@ -62,8 +52,38 @@ namespace JetstreamSkiserviceAPI.Services
         /// <returns>A collection of Registrations with the associated status</returns>
         public async Task<StatusDto> GetByStatus(string statusName)
         {
-            var allStatuses = await GetAll();
-            return allStatuses.FirstOrDefault(s => s.StatusName == statusName);
+            var status = await _context.Status
+                .Include(s => s.Registrations)
+                    .ThenInclude(r => r.Priority)
+                .Include(s => s.Registrations)
+                    .ThenInclude(r => r.Service)
+            .FirstOrDefaultAsync(s => s.StatusName == statusName);
+
+            if (status != null)
+            {
+                var statusDto = new StatusDto
+                {
+                    StatusId = status.StatusId,
+                    StatusName = status.StatusName,
+                    Registration = status.Registrations.Select(r => new RegistrationDto
+                    {
+                        RegistrationId = r.RegistrationId,
+                        FirstName = r.FirstName,
+                        LastName = r.LastName,
+                        Email = r.Email,
+                        Phone = r.Phone,
+                        Create_date = r.Create_date,
+                        Pickup_date = r.Pickup_date,
+                        Priority = r.Priority.PriorityName,
+                        Service = r.Service.ServiceName,
+                        Status = r.Status.StatusName,
+                        Price = r.Price,
+                        Comment = r.Comment
+                    }).ToList()
+                };
+                return statusDto;
+            }
+            return null;
         }
     }
 }
